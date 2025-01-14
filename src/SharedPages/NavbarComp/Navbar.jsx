@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const user = "rokib shuvo";
+  const user = null;
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -41,12 +42,12 @@ const Navbar = () => {
                   <p className="font-bold">{user.name}</p>
                 </div>
                 <hr />
-                <a
+                <Link
                   href="/dashboard"
                   className="block px-4 py-2 hover:bg-gray-100"
                 >
                   Dashboard
-                </a>
+                </Link>
                 <button
                   className="block w-full text-left px-4 py-2 hover:bg-gray-100"
                   onClick={() => console.log("Logged out")}
@@ -57,12 +58,12 @@ const Navbar = () => {
             )}
           </div>
         ) : (
-          <a
-            href="/login"
+          <Link
+            to="login"
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           >
             Login
-          </a>
+          </Link>
         )}
       </div>
     </nav>
