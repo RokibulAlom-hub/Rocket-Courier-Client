@@ -2,9 +2,12 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
+import SocialLogin from "../../../Hooks/SocialLogin";
+import useAxiospublic from "../../../Hooks/useAxiospublic";
 
 const Register = () => {
-    const {createUserByemail,googlelogin} = useAuth()
+    const {createUserByemail} = useAuth()
+    const axiosPublic = useAxiospublic()
   const {
     register,
     handleSubmit,
@@ -12,21 +15,26 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    console.log(data);
     
     createUserByemail(data?.email,data?.password)
     .then(result => {
-        console.log(result.user);
+        console.log(result.user)
+        const userInfo = {
+            email:result?.user?.email,
+            name:result?.user?.displayName,
+            photourl:data.photoURL,
+            role: "user",
+        }
+        axiosPublic.post(`/users`,userInfo)
+        .then(res => {
+            console.log(res.data);
+        })
         
     })
+    .catch((err) => console.log(err.message))
   };
 
-  const handleGoogleRegister = () => {
-    googlelogin()
-    .then(result => {
-        console.log(result.user);
-        
-    })
-  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -104,12 +112,7 @@ const Register = () => {
         {/* Google Register Button */}
         <div className="mt-6 text-center">
           <p className="text-gray-600 mb-2">Or</p>
-          <button
-            onClick={handleGoogleRegister}
-            className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition duration-300"
-          >
-            Register with Google
-          </button>
+         <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>

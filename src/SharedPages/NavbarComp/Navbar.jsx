@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 const Navbar = () => {
-  const user = null;
+  const {user,userLogout} = useAuth()
+  const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  const handleLogout = () => {
+    userLogout()
+    .then(res => {
+      // console.log(res.user);
+      navigate('/login')
+    })
+  }
 
   return (
     <nav className="border-b-2  border-orange-300 text-white px-4 py-3 flex justify-between items-center">
@@ -50,7 +58,7 @@ const Navbar = () => {
                 </Link>
                 <button
                   className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                  onClick={() => console.log("Logged out")}
+                  onClick={handleLogout}
                 >
                   Logout
                 </button>
