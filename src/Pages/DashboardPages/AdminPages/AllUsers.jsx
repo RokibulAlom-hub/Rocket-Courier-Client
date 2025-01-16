@@ -55,7 +55,7 @@ const AllUsers = () => {
               <tr key={user._id}>
                 <td>{index + 1}</td>
                 <td>{user.name}</td>
-                <td>{user.phone || "N/A"}</td>
+                <td>{user.phoneNumber || "N/A"}</td>
                 <td>{user.parcelsBooked || 0}</td>
                 <td className="bg-black rounded-lg text-white font-bold">{user.role}</td>
                 <td>

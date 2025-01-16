@@ -1,6 +1,7 @@
 import React from "react";
 import bannerImg from "../../../assets/banner.jpg"
 const Banner = () => {
+  
   return (
     <div
       className="relative min-h-screen bg-cover bg-center flex items-center justify-center my-7"
@@ -17,7 +18,6 @@ const Banner = () => {
         <h1 className="text-4xl md:text-6xl font-bold mb-6">
           Find Your Dream Destination
         </h1>
-
         {/* Search Bar */}
         <div className="flex items-center max-w-md mx-auto bg-white rounded-full overflow-hidden shadow-lg">
           <input

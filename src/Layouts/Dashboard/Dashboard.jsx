@@ -3,9 +3,10 @@ import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import Navbar from "../../SharedPages/NavbarComp/Navbar";
 import Footer from "../../SharedPages/FooterComp/Footer";
+import useRoleUser from "../../Hooks/useRoleusers";
 
 const Dashboard = () => {
-    const userType = "Admin"
+    const role = useRoleUser()
   return (
     <>
     <Navbar></Navbar>
@@ -16,7 +17,7 @@ const Dashboard = () => {
           Dashboard
         </div>
         <ul className="menu p-4">
-          {userType === "Admin" && (
+          {role === "Admin" && (
             <>
               <li>
                 <Link to="/dashboard/all-parcels">All Parcels</Link>
@@ -33,8 +34,11 @@ const Dashboard = () => {
             </>
           )}
 
-          {userType === "user" && (
+          {role === "user" && (
             <>
+              <li>
+                <Link to="/dashboard/book-parcels">Book A Parcel</Link>
+              </li>
               <li>
                 <Link to="/dashboard/my-parcels">My Parcels</Link>
               </li>
@@ -44,7 +48,7 @@ const Dashboard = () => {
             </>
           )}
 
-          {userType === "Delivery-Men" && (
+          {role === "Delivery-Men" && (
             <>
               <li>
                 <Link to="/dashboard/delivery-tasks">Delivery Tasks</Link>

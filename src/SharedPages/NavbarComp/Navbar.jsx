@@ -1,20 +1,19 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 
 const Navbar = () => {
-  const {user,userLogout} = useAuth()
+  const { user, userLogout } = useAuth();
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const handleLogout = () => {
-    userLogout()
-    .then(res => {
+    userLogout().then((res) => {
       // console.log(res.user);
-      navigate('/login')
-    })
-  }
+      navigate("/login");
+    });
+  };
 
   return (
     <nav className="border-b-2 bg-gradient-to-r from-blue-500 to-purple-600  border-orange-300 text-white px-4 py-3 flex justify-between items-center">
