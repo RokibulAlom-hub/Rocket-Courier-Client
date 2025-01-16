@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import SocialLogin from "../../../Hooks/SocialLogin";
 import useAxiospublic from "../../../Hooks/useAxiospublic";
@@ -8,6 +8,7 @@ import useAxiospublic from "../../../Hooks/useAxiospublic";
 const Register = () => {
     const {createUserByemail} = useAuth()
     const axiosPublic = useAxiospublic()
+    const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -15,21 +16,22 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log(data.number);
     
     createUserByemail(data?.email,data?.password)
     .then(result => {
         console.log(result.user)
         const userInfo = {
             email:result?.user?.email,
-            name:result?.user?.displayName,
-            photourl:data.photoURL,
+            name:data?.name,
+            phoneNumber:data?.number,
             role: "user",
         }
         axiosPublic.post(`/users`,userInfo)
         .then(res => {
             console.log(res.data);
         })
+        navigate('/')
         
     })
     .catch((err) => console.log(err.message))
@@ -47,6 +49,18 @@ const Register = () => {
             <input
               type="text"
               {...register("name", { required: "Name is required" })}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+            />
+            {errors.name && (
+              <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+            )}
+          </div>
+          {/* phone number filed */}
+          <div className="mb-4">
+            <label className="block text-gray-700 mb-2">Phone Number</label>
+            <input
+              type="number"
+              {...register("number", { required: "Number is required" })}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
             />
             {errors.name && (

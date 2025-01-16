@@ -17,7 +17,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="border-b-2  border-orange-300 text-white px-4 py-3 flex justify-between items-center">
+    <nav className="border-b-2 bg-gradient-to-r from-blue-500 to-purple-600  border-orange-300 text-white px-4 py-3 flex justify-between items-center">
       {/* Logo and Website Name */}
       <div className="flex items-center gap-2">
         <img src="/logo.png" alt="Logo" className="h-8 w-8" />
@@ -51,7 +51,7 @@ const Navbar = () => {
                 </div>
                 <hr />
                 <Link
-                  href="/dashboard"
+                  to="/dashboard"
                   className="block px-4 py-2 hover:bg-gray-100"
                 >
                   Dashboard
