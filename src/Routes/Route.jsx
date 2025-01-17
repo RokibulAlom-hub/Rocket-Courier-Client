@@ -9,6 +9,8 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import AllUsers from "../Pages/DashboardPages/AdminPages/AllUsers";
 import AllDeliveryMen from "../Pages/DashboardPages/AdminPages/AllDeliveryMen";
 import BookParcel from "../Pages/DashboardPages/Userspages/BookParcel";
+import MyParcels from "../Pages/DashboardPages/Userspages/Myparcels";
+import Allparcels from "../Pages/DashboardPages/AdminPages/Allparcels";
 
 export const router = createBrowserRouter([
   // mainlayout
@@ -46,12 +48,20 @@ export const router = createBrowserRouter([
             element:<AllUsers></AllUsers>
         },
         {
+            path:"/dashboard/all-parcels",
+            element:<Allparcels></Allparcels>
+        },
+        {
             path:"/dashboard/all-delivery-men",
             element:<AllDeliveryMen></AllDeliveryMen>
         },
         {
             path:"/dashboard/book-parcels",
             element:<BookParcel></BookParcel>
+        },
+        {
+            path:"/dashboard/my-parcels",
+            element:<MyParcels></MyParcels>
         },
     ],
   },

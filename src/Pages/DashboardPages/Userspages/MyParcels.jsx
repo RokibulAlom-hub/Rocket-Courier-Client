@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useAxiossecure from "../../../Hooks/useAxiossecure";
+import useAuth from "../../../Hooks/useAuth";
 
-const MyParcels = ({ parcels, updateParcelStatus }) => {
+const MyParcels = () => {
   const navigate = useNavigate();
-
+  const {user} = useAuth()
+  const [parcels,setParcel] = useState([])
+  const axiosSecure = useAxiossecure()
+  useEffect(() => {
+    axiosSecure.get(`/parcels?email=${user?.email}`)
+    .then(res => {
+        setParcel(res.data)
+    })
+  },[user?.email])
+  // console.log(parcels);
+  
   const handleCancel = (parcelId) => {
     const confirmCancel = window.confirm(
       "Are you sure you want to cancel this booking?"
@@ -36,15 +48,15 @@ const MyParcels = ({ parcels, updateParcelStatus }) => {
           </thead>
           <tbody>
             {parcels.map((parcel, index) => (
-              <tr key={parcel.id}>
+              <tr key={parcel._id}>
                 <td>{index + 1}</td>
                 <td>{parcel.parcelType}</td>
-                <td>{parcel.requestedDeliveryDate}</td>
+                <td>{parcel.deliveryDate}</td>
                 <td>{parcel.approxDeliveryDate || "TBD"}</td>
-                <td>{new Date(parcel.bookingDate).toLocaleDateString()}</td>
+                <td>{parcel.bookingDate}</td>
                 <td>{parcel.deliveryManId || "Unassigned"}</td>
                 <td>{parcel.status}</td>
-                <td>
+                <td className="flex flex-col justify-center gap-1">
                   {/* Update Button */}
                   <button
                     className={`btn btn-sm ${
@@ -77,15 +89,7 @@ const MyParcels = ({ parcels, updateParcelStatus }) => {
                     </button>
                   )}
 
-                  {/* Pay Button */}
-                  {parcel.status === "pending" && (
-                    <button
-                      className="btn btn-sm btn-warning ml-2"
-                      onClick={() => navigate(`/payment/${parcel.id}`)}
-                    >
-                      Pay
-                    </button>
-                  )}
+                 
                 </td>
               </tr>
             ))}

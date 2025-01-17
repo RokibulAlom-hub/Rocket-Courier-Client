@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiospublic from "../../../Hooks/useAxiospublic";
+import { format } from "date-fns";
 
 const BookParcel = () => {
   const axiosPublic = useAxiospublic();
@@ -20,8 +21,10 @@ const BookParcel = () => {
   const onSubmit = async (data) => {
     const bookingData = {
       ...data,
+      bookingDate: format(new Date(), "dd/MM/yyyy"),
       price,
-      status: "pending", // Default status
+      email:user?.email,
+      status: "pending", 
     };
     try {
       const response = await axiosPublic.post(`/parcels`, bookingData);
@@ -32,7 +35,7 @@ const BookParcel = () => {
     }
 
     console.log("Booking Data:", bookingData);
-    // You can handle the backend submission here.
+
   };
 
   return (
