@@ -9,8 +9,10 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import AllUsers from "../Pages/DashboardPages/AdminPages/AllUsers";
 import AllDeliveryMen from "../Pages/DashboardPages/AdminPages/AllDeliveryMen";
 import BookParcel from "../Pages/DashboardPages/Userspages/BookParcel";
-import MyParcels from "../Pages/DashboardPages/Userspages/Myparcels";
 import Allparcels from "../Pages/DashboardPages/AdminPages/Allparcels";
+import MyParcels from "../Pages/DashboardPages/Userspages/MyParcels";
+import MydeliveryLIst from "../Pages/DashboardPages/DeliveryManpages/MydeliveryLIst";
+import UpdateParcel from "../Pages/DashboardPages/Userspages/UpdateParcel";
 
 export const router = createBrowserRouter([
   // mainlayout
@@ -62,6 +64,16 @@ export const router = createBrowserRouter([
         {
             path:"/dashboard/my-parcels",
             element:<MyParcels></MyParcels>
+        },
+        {
+            path:"/dashboard/update/parcel/:id",
+            element:<UpdateParcel></UpdateParcel>,
+            loader: ({ params }) => fetch(`http://localhost:7000/update/parcel/${params.id}`)
+
+        },
+        {
+            path:"/dashboard/delivery-tasks",
+            element:<MydeliveryLIst></MydeliveryLIst>
         },
     ],
   },

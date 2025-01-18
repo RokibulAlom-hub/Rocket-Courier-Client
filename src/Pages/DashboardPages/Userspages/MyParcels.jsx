@@ -1,33 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAxiossecure from "../../../Hooks/useAxiossecure";
 import useAuth from "../../../Hooks/useAuth";
 
 const MyParcels = () => {
   const navigate = useNavigate();
-  const {user} = useAuth()
-  const [parcels,setParcel] = useState([])
-  const axiosSecure = useAxiossecure()
+  const { user } = useAuth();
+  const [parcels, setParcel] = useState([]);
+  const axiosSecure = useAxiossecure();
   useEffect(() => {
-    axiosSecure.get(`/parcels?email=${user?.email}`)
-    .then(res => {
-        setParcel(res.data)
-    })
-  },[user?.email])
+    axiosSecure.get(`/parcels?email=${user?.email}`).then((res) => {
+      setParcel(res.data);
+    });
+  }, [user?.email]);
   // console.log(parcels);
-  
-  const handleCancel = (parcelId) => {
-    const confirmCancel = window.confirm(
-      "Are you sure you want to cancel this booking?"
-    );
-    if (confirmCancel) {
-      updateParcelStatus(parcelId, "canceled");
-    }
+
+  const handleCancel = (id) => {
+    console.log("this is parcel id for cancel", id);
+    const cancelStatus = {
+      status: "cancel",
+    };
+    const response = axiosSecure.patch(`/update-status/${id}`, cancelStatus);
+    console.log(response.data);
+    alert("parcel cancel");
   };
 
-  const handleUpdate = (parcelId) => {
-    navigate(`/update-booking/${parcelId}`);
-  };
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
@@ -58,22 +55,24 @@ const MyParcels = () => {
                 <td>{parcel.status}</td>
                 <td className="flex flex-col justify-center gap-1">
                   {/* Update Button */}
-                  <button
+                  <Link to={`/dashboard/update/parcel/${parcel._id}`}
                     className={`btn btn-sm ${
-                      parcel.status === "pending" ? "btn-primary" : "btn-disabled"
+                      parcel.status === "pending"
+                        ? "btn-primary"
+                        : "btn-disabled"
                     }`}
-                    onClick={() => handleUpdate(parcel.id)}
                     disabled={parcel.status !== "pending"}
+
                   >
                     Update
-                  </button>
+                  </Link>
 
                   {/* Cancel Button */}
                   <button
                     className={`btn btn-sm ${
                       parcel.status === "pending" ? "btn-error" : "btn-disabled"
                     } ml-2`}
-                    onClick={() => handleCancel(parcel.id)}
+                    onClick={() => handleCancel(parcel._id)}
                     disabled={parcel.status !== "pending"}
                   >
                     Cancel
@@ -88,8 +87,6 @@ const MyParcels = () => {
                       Review
                     </button>
                   )}
-
-                 
                 </td>
               </tr>
             ))}

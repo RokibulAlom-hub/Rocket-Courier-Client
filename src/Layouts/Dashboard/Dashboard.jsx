@@ -6,7 +6,9 @@ import Footer from "../../SharedPages/FooterComp/Footer";
 import useRoleUser from "../../Hooks/useRoleusers";
 
 const Dashboard = () => {
-    const role = useRoleUser()
+    const [role,roleId] = useRoleUser()
+    console.log(role,roleId);
+    
   return (
     <>
     <Navbar></Navbar>
