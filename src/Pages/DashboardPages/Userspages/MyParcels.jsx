@@ -52,9 +52,9 @@ const MyParcels = () => {
                 <td>{index + 1}</td>
                 <td>{parcel.parcelType}</td>
                 <td>{parcel.deliveryDate}</td>
-                <td>{parcel.approxDeliveryDate || "TBD"}</td>
+                <td>{parcel.App_delivery_date || "TBD"}</td>
                 <td>{parcel.bookingDate}</td>
-                <td>{parcel.deliveryManId || "Unassigned"}</td>
+                <td>{parcel.deliverymanId || "Unassigned"}</td>
                 <td>{parcel.status}</td>
                 <td className="flex flex-col justify-center gap-1">
                   {/* Update Button */}

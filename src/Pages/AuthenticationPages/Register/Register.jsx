@@ -6,9 +6,9 @@ import SocialLogin from "../../../Hooks/SocialLogin";
 import useAxiospublic from "../../../Hooks/useAxiospublic";
 
 const Register = () => {
-    const {createUserByemail} = useAuth()
-    const axiosPublic = useAxiospublic()
-    const navigate = useNavigate()
+  const { createUserByemail, updateUserData } = useAuth();
+  const axiosPublic = useAxiospublic();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -17,26 +17,29 @@ const Register = () => {
 
   const onSubmit = (data) => {
     // console.log(data.number);
-    
-    createUserByemail(data?.email,data?.password)
-    .then(result => {
-        // console.log(result.user)
-        const userInfo = {
-            email:result?.user?.email,
-            name:data?.name,
-            phoneNumber:data?.number,
-            role: "user",
-        }
-        axiosPublic.post(`/users`,userInfo)
-        .then(res => {
-            // console.log(res.data);
-        })
-        navigate('/')
-        
-    })
-    .catch((err) => console.log(err.message))
-  };
 
+    createUserByemail(data?.email, data?.password)
+      .then((result) => {
+        updateUserData(result.user, {
+          displayName: data?.name,
+          photoURL: data?.photoURL,
+        }).then(() => {
+          
+          const userInfo = {
+            email: result?.user?.email,
+            name: data?.name,
+            phoneNumber: data?.number,
+            role: "user",
+          };
+          axiosPublic.post(`/users`, userInfo).then((res) => {
+            console.log(res.data);
+          });
+          navigate("/");
+        });
+
+      })
+      .catch((err) => console.log(err.message));
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -77,7 +80,9 @@ const Register = () => {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
             />
             {errors.photoURL && (
-              <p className="text-red-500 text-sm mt-1">{errors.photoURL.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.photoURL.message}
+              </p>
             )}
           </div>
 
@@ -90,7 +95,9 @@ const Register = () => {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
             />
             {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.email.message}
+              </p>
             )}
           </div>
 
@@ -109,7 +116,9 @@ const Register = () => {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
             />
             {errors.password && (
-              <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.password.message}
+              </p>
             )}
           </div>
 
@@ -120,13 +129,18 @@ const Register = () => {
           >
             Register
           </button>
-          <div>Already Have an account <Link to="/login" className="text-red-500">Login</Link></div>
+          <div>
+            Already Have an account{" "}
+            <Link to="/login" className="text-red-500">
+              Login
+            </Link>
+          </div>
         </form>
 
         {/* Google Register Button */}
         <div className="mt-6 text-center">
           <p className="text-gray-600 mb-2">Or</p>
-         <SocialLogin></SocialLogin>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>

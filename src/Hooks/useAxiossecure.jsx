@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const axiosSecure = axios.create({
-    baseURL:"https://b10a12-server-side-rokibul-alom-hub.vercel.app"
+export const axiosSecure = axios.create({
+    baseURL:"http://localhost:7000"
 })
 const useAxiossecure = () => {
     return axiosSecure

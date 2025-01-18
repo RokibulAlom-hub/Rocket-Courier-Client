@@ -5,7 +5,7 @@ const AllUsers = () => {
 
   useEffect(() => {
     // Fetch users data from the backend
-    fetch(`https://b10a12-server-side-rokibul-alom-hub.vercel.app/allusers`) // Replace with your API URL
+    fetch(`http://localhost:7000/allusers`) // Replace with your API URL
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, []);
@@ -13,7 +13,7 @@ const AllUsers = () => {
   
   const handleRoleChange = (id, role) => {
     // Send a request to the backend to update user role
-    fetch(`https://b10a12-server-side-rokibul-alom-hub.vercel.app/users/${id}`, {
+    fetch(`http://localhost:7000/users/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
