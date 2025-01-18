@@ -16,11 +16,11 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data.number);
+    // console.log(data.number);
     
     createUserByemail(data?.email,data?.password)
     .then(result => {
-        console.log(result.user)
+        // console.log(result.user)
         const userInfo = {
             email:result?.user?.email,
             name:data?.name,
@@ -29,7 +29,7 @@ const Register = () => {
         }
         axiosPublic.post(`/users`,userInfo)
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
         })
         navigate('/')
         

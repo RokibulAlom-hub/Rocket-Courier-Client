@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import useAxiosSecure from '../../../Hooks/useAxiossecure';
+import useDeliveryman from '../../../Hooks/useDeliveryman';
 
 const AllDeliveryMen = () => {
-    const axiosSecure = useAxiosSecure();
-    const [deliveryMen, setDeliveryMen] = useState([]);
+    const {deliveryMan} = useDeliveryman();
+    console.log(deliveryMan);
+    
+    // const [deliveryMen, setDeliveryMen] = useState([]);
 
-    useEffect(() => {
-        axiosSecure.get(`/alldelivery?role=Delivery-Men`)
-        .then(res => {
-            setDeliveryMen(res.data);
-        })
-        .catch(error => {
-            console.error("Failed to fetch delivery men:", error);
-        });
-    }, []);
+    // useEffect(() => {
+    //     axiosSecure.get(`/alldelivery?role=Delivery-Men`)
+    //     .then(res => {
+    //         setDeliveryMen(res.data);
+    //     })
+    //     .catch(error => {
+    //         console.error("Failed to fetch delivery men:", error);
+    //     });
+    // }, []);
 
     return (
         <div>
@@ -28,7 +29,7 @@ const AllDeliveryMen = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {deliveryMen.map((deliveryMan) => (
+                    {deliveryMan.map((deliveryMan) => (
                         <tr key={deliveryMan._id}>
                             <td className="py-2 px-4 border-b">{deliveryMan.name}</td>
                             <td className="py-2 px-4 border-b">{deliveryMan.phoneNumber}</td>

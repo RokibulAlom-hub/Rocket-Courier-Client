@@ -17,24 +17,26 @@ const BookParcel = () => {
       ? 100
       : 150
     : 0;
-
+    console.log(user);
+    
   const onSubmit = async (data) => {
     const bookingData = {
       ...data,
       bookingDate: format(new Date(), "dd/MM/yyyy"),
       price,
       email:user?.email,
+      name:user?.displayName,
       status: "pending", 
     };
     try {
       const response = await axiosPublic.post(`/parcels`, bookingData);
-      console.log(response);
+      // console.log(response);
       alert("Booking added");
     } catch (error) {
       console.error("Error booking parcel:", error);
     }
 
-    console.log("Booking Data:", bookingData);
+    // console.log("Booking Data:", bookingData);
 
   };
 

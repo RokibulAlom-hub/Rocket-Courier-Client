@@ -15,14 +15,14 @@ const Login = () => {
   const onsubmit = (data) => {
     userLogin(data?.email,data?.password)
     .then(res => {
-        console.log(res.user);
+        // console.log(res.user);
         navigate('/')
     })
   }
   const handleGoogleLogin = () => {
     googlelogin()
     .then(result => {
-        console.log(result.user);
+        // console.log(result.user);
         
     })
   };
