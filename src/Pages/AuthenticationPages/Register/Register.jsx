@@ -4,7 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import SocialLogin from "../../../Hooks/SocialLogin";
 import useAxiospublic from "../../../Hooks/useAxiospublic";
-
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const Register = () => {
   const { createUserByemail, updateUserData } = useAuth();
   const axiosPublic = useAxiospublic();
@@ -15,31 +16,33 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    // console.log(data.number);
-
-    createUserByemail(data?.email, data?.password)
-      .then((result) => {
-        updateUserData(result.user, {
-          displayName: data?.name,
-          photoURL: data?.photoURL,
-        }).then(() => {
-          
-          const userInfo = {
-            email: result?.user?.email,
-            name: data?.name,
-            phoneNumber: data?.number,
-            role: "user",
-          };
-          axiosPublic.post(`/users`, userInfo).then((res) => {
-            console.log(res.data);
-          });
-          navigate("/");
-        });
-
-      })
-      .catch((err) => console.log(err.message));
+  const onSubmit = async (data) => {
+    try {
+      const imageFile = { image: data.image[0] };
+      const res = await axiosPublic.post(image_hosting_api, imageFile, {
+        headers: { "content-type": "multipart/form-data" },
+      });
+  
+      const user = await createUserByemail(data?.email, data?.password);
+      await updateUserData({
+        displayName: data?.name,
+        photoURL: res.data.data.display_url,
+      });
+  
+      const userInfo = {
+        email: user?.email,
+        name: data?.name,
+        phoneNumber: data?.number,
+        role: "user",
+      };
+  
+      await axiosPublic.post(`/users`, userInfo);
+      navigate("/");
+    } catch (err) {
+      console.error("Error:", err.message);
+    }
   };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -75,8 +78,8 @@ const Register = () => {
           <div className="mb-4">
             <label className="block text-gray-700 mb-2">Photo URL</label>
             <input
-              type="text"
-              {...register("photoURL", { required: "Photo URL is required" })}
+              type="file"
+              {...register("image", { required: "Photo URL is required" })}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
             />
             {errors.photoURL && (

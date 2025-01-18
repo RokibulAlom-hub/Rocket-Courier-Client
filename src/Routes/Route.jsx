@@ -13,6 +13,7 @@ import Allparcels from "../Pages/DashboardPages/AdminPages/Allparcels";
 import MyParcels from "../Pages/DashboardPages/Userspages/MyParcels";
 import MydeliveryLIst from "../Pages/DashboardPages/DeliveryManpages/MydeliveryLIst";
 import UpdateParcel from "../Pages/DashboardPages/Userspages/UpdateParcel";
+import MyProfile from "../Pages/DashboardPages/Userspages/MyProfile";
 
 export const router = createBrowserRouter([
   // mainlayout
@@ -71,6 +72,12 @@ export const router = createBrowserRouter([
             loader: ({ params }) => fetch(`http://localhost:7000/update/parcel/${params.id}`)
 
         },
+        {
+            path:"/dashboard/myprofile",
+            element:<MyProfile></MyProfile>,
+
+        },
+        // deliveryman routes
         {
             path:"/dashboard/delivery-tasks",
             element:<MydeliveryLIst></MydeliveryLIst>
