@@ -10,7 +10,7 @@ const Dashboard = () => {
     const [role] = useRoleUser()
     useEffect(() => {
         if (role === "Admin" ) {
-          navigate("/dashboard/all-parcels")
+          navigate("/dashboard/statistics")
         }
         if (role === "user") {
           navigate("/dashboard/book-parcels")
@@ -32,6 +32,9 @@ const Dashboard = () => {
           {role === "Admin" && (
             <>
               <li>
+                <NavLink to="/dashboard/statistics">Statistics</NavLink>
+              </li>
+              <li>
                 <NavLink to="/dashboard/all-parcels">All Parcels</NavLink>
               </li>
               <li>
@@ -39,9 +42,6 @@ const Dashboard = () => {
               </li>
               <li>
                 <NavLink to="/dashboard/all-delivery-men">All Delivery Men</NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/statistics">Statistics</NavLink>
               </li>
             </>
           )}

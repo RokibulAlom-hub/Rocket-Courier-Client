@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useAxiossecure from "../../../Hooks/useAxiossecure";
 import useAuth from "../../../Hooks/useAuth";
+import { useForm } from "react-hook-form";
 
 const MyParcels = () => {
-  const navigate = useNavigate();
+  const [dmanId,setDmanid] = useState('')
   const { user } = useAuth();
   const [parcels, setParcel] = useState([]);
   const axiosSecure = useAxiossecure();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   useEffect(() => {
     axiosSecure.get(`/parcels?email=${user?.email}`).then((res) => {
       setParcel(res.data);
@@ -24,7 +30,15 @@ const MyParcels = () => {
     console.log(response.data);
     alert("parcel cancel");
   };
-
+  const onSubmit = async (data) => {
+    console.log(data);
+    const response = await axiosSecure.post('/reviews',data)
+    alert('review creatd')
+    return response.data
+  };
+  const handledId = (id) =>{
+    setDmanid(id)
+  }
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
@@ -51,18 +65,18 @@ const MyParcels = () => {
                 <td>{parcel.deliveryDate}</td>
                 <td>{parcel.App_delivery_date || "TBD"}</td>
                 <td>{parcel.bookingDate}</td>
-                <td>{parcel.deliverymanId || "Unassigned"}</td>
+                <td>{parcel?.deliverymanId || "Unassigned"}</td>
                 <td>{parcel.status}</td>
                 <td className="flex flex-col justify-center gap-1">
                   {/* Update Button */}
-                  <Link to={`/dashboard/update/parcel/${parcel._id}`}
+                  <Link
+                    to={`/dashboard/update/parcel/${parcel._id}`}
                     className={`btn btn-sm ${
                       parcel.status === "pending"
                         ? "btn-primary"
                         : "btn-disabled"
                     }`}
                     disabled={parcel.status !== "pending"}
-
                   >
                     Update
                   </Link>
@@ -79,18 +93,112 @@ const MyParcels = () => {
                   </button>
 
                   {/* Review Button */}
-                  {parcel.status === "delivered" && (
-                    <button
-                      className="btn btn-sm btn-success ml-2"
-                      onClick={() => navigate(`/review/${parcel.id}`)}
-                    >
-                      Review
-                    </button>
+                  {parcel.status === "delivered" && parcel.deliverymanId && (
+                    <label onClick={() => handledId(parcel.deliverymanId)} htmlFor="review-modal" className="btn btn-primary">
+                      Give Review
+                    </label>
                   )}
                 </td>
               </tr>
             ))}
           </tbody>
+          <div>
+            {/* Modal */}
+            <input type="checkbox" id="review-modal" className="modal-toggle" />
+            <div className="modal">
+              <div className="modal-box relative">
+                <label
+                  htmlFor="review-modal"
+                  className="btn btn-sm btn-circle absolute right-2 top-2"
+                >
+                  ✕
+                </label>
+                <h3 className="text-lg font-bold">Submit Your Review</h3>
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="mt-4 space-y-4"
+                >
+                  {/* User Name */}
+                  <div>
+                    <label className="label">
+                      <span className="label-text">Your Name</span>
+                    </label>
+                    <input
+                      type="text"
+                      defaultValue={user.displayName}
+                      {...register("userName")}
+                      className="input input-bordered w-full"
+                      readOnly
+                    />
+                  </div>
+
+                  {/* User Image */}
+                  <div>
+                    <label className="label">
+                      <span className="label-text">Your Image</span>
+                    </label>
+                    <input
+                      type="text"
+                      defaultValue={user.photoURL}
+                      {...register("userImage")}
+                      className="input input-bordered w-full"
+                      readOnly
+                    />
+                  </div>
+
+                  {/* Rating */}
+                  <div>
+                    <label className="label">
+                      <span className="label-text">Rating (out of 5)</span>
+                    </label>
+                    <input
+                      type="number"
+                      {...register("rating", {
+                        required: true,
+                        min: 1,
+                        max: 5,
+                      })}
+                      className="input input-bordered w-full"
+                      min="1"
+                      max="5"
+                    />
+                  </div>
+
+                  {/* Feedback */}
+                  <div>
+                    <label className="label">
+                      <span className="label-text">Feedback</span>
+                    </label>
+                    <textarea
+                      {...register("feedback", { required: true })}
+                      className="textarea textarea-bordered w-full"
+                      placeholder="Write your feedback"
+                    />
+                  </div>
+
+                  {/* Delivery Man's ID */}
+                  <div>
+                    <label className="label">
+                      <span className="label-text">Delivery Man's ID</span>
+                    </label>
+                    <input
+                      type="text"
+                      defaultValue={dmanId}
+                      {...register("dmanID", { required: true })}
+                      className="input input-bordered w-full"
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <div className="modal-action">
+                    <button type="submit" className="btn btn-primary">
+                      Submit Review
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </table>
       </div>
     </div>

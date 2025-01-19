@@ -14,6 +14,7 @@ import MyParcels from "../Pages/DashboardPages/Userspages/MyParcels";
 import MydeliveryLIst from "../Pages/DashboardPages/DeliveryManpages/MydeliveryLIst";
 import UpdateParcel from "../Pages/DashboardPages/Userspages/UpdateParcel";
 import MyProfile from "../Pages/DashboardPages/Userspages/MyProfile";
+import Statistics from "../Pages/DashboardPages/AdminPages/Statistics";
 
 export const router = createBrowserRouter([
   // mainlayout
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
         {
             path:"/dashboard/all-users",
             element:<AllUsers></AllUsers>
+        },
+        {
+            path:"/dashboard/statistics",
+            element:<Statistics></Statistics>
         },
         {
             path:"/dashboard/all-parcels",

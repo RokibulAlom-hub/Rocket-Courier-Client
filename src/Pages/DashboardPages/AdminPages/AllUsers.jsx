@@ -2,14 +2,6 @@ import useAllusers from "../../../Hooks/useAllusers";
 
 const AllUsers = () => {
   const [users,refetch,isLoading,error] = useAllusers()
-
-  // useEffect(() => {
-  //   // Fetch users data from the backend
-  //   fetch(`http://localhost:7000/allusers`) // Replace with your API URL
-  //     .then((res) => res.json())
-  //     .then((data) => setUsers(data));
-  // }, []);
-  // // console.log(users);
   if (isLoading) {
     return <div>Loading...</div>; // Show loading indicator while fetching
   }
