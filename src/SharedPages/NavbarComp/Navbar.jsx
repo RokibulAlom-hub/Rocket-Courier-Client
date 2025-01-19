@@ -5,6 +5,8 @@ import useAuth from "../../Hooks/useAuth";
 
 const Navbar = () => {
   const { user, userLogout } = useAuth();
+  console.log(user);
+  
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -38,7 +40,7 @@ const Navbar = () => {
         {user ? (
           <div className="relative">
             <img
-              src={user.profilePicture}
+              src={user.photoURL}
               alt="Profile"
               className="h-10 w-10 rounded-full cursor-pointer"
               onClick={toggleDropdown}
@@ -46,7 +48,7 @@ const Navbar = () => {
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 z-20 w-48 bg-white text-black rounded-lg shadow-lg">
                 <div className="px-4 py-2">
-                  <p className="font-bold">{user.name}</p>
+                  <p className="font-bold">{user.displayName}</p>
                 </div>
                 <hr />
                 <Link

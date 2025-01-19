@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from "react";
+import useAllusers from "../../../Hooks/useAllusers";
 
 const AllUsers = () => {
-  const [users, setUsers] = useState([]);
+  const [users,refetch,isLoading,error] = useAllusers()
 
-  useEffect(() => {
-    // Fetch users data from the backend
-    fetch(`http://localhost:7000/allusers`) // Replace with your API URL
-      .then((res) => res.json())
-      .then((data) => setUsers(data));
-  }, []);
-  // console.log(users);
-  
+  // useEffect(() => {
+  //   // Fetch users data from the backend
+  //   fetch(`http://localhost:7000/allusers`) // Replace with your API URL
+  //     .then((res) => res.json())
+  //     .then((data) => setUsers(data));
+  // }, []);
+  // // console.log(users);
+  if (isLoading) {
+    return <div>Loading...</div>; // Show loading indicator while fetching
+  }
+
+  if (error) {
+    return <div>Error fetching parcels: {error.message}</div>; // Show error message
+  }
   const handleRoleChange = (id, role) => {
     // Send a request to the backend to update user role
     fetch(`http://localhost:7000/users/${id}`, {
@@ -23,15 +29,10 @@ const AllUsers = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          // Update the local state to reflect changes
-          setUsers((prevUsers) =>
-            prevUsers.map((user) =>
-              user._id === id ? { ...user, role } : user
-            )
-          );
         }
       });
-  };
+    };
+    refetch()
 
   return (
     <div className="p-6">
@@ -45,7 +46,6 @@ const AllUsers = () => {
               <th>#</th>
               <th>Name</th>
               <th>Phone Number</th>
-              <th>Parcels Booked</th>
               <th>User Status</th>
               <th>Actions</th>
             </tr>
@@ -56,7 +56,6 @@ const AllUsers = () => {
                 <td>{index + 1}</td>
                 <td>{user.name}</td>
                 <td>{user.phoneNumber || "N/A"}</td>
-                <td>{user.parcelsBooked || 0}</td>
                 <td className="bg-black rounded-lg text-white font-bold">{user.role}</td>
                 <td>
                   {user.role !== "Admin" && (

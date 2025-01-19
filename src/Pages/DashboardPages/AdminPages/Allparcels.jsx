@@ -1,25 +1,26 @@
-import { useQuery } from "@tanstack/react-query";
 import useDeliveryman from "../../../Hooks/useDeliveryman";
 import { useState } from "react";
 import useAxiossecure from "../../../Hooks/useAxiossecure";
+import useAllparcels from "../../../Hooks/useAllparcels";
 
 const AllParcels = () => {
   const axiosSecure = useAxiossecure();
   const { deliveryMan } = useDeliveryman();
   const [appDate, setAppdate] = useState("");
   const [dMan, setDman] = useState(null);
+  const  [parcels,isLoading,error] = useAllparcels()
   // Using react-query to fetch all parcels
-  const {
-    data: parcels,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["allparcels"],
-    queryFn: async () => {
-      const response = await axiosSecure.get("/allparcels");
-      return response.data;
-    },
-  });
+  // const {
+  //   data: parcels,
+  //   isLoading,
+  //   error,
+  // } = useQuery({
+  //   queryKey: ["allparcels"],
+  //   queryFn: async () => {
+  //     const response = await axiosSecure.get("/allparcels");
+  //     return response.data;
+  //   },
+  // });
   console.log(parcels);
   const handleManage = async (id) => {
     console.log(id, dMan._id, appDate);

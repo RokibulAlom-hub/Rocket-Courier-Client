@@ -1,14 +1,24 @@
 // Dashboard.jsx
-import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import Navbar from "../../SharedPages/NavbarComp/Navbar";
 import Footer from "../../SharedPages/FooterComp/Footer";
 import useRoleUser from "../../Hooks/useRoleusers";
 
 const Dashboard = () => {
-    const [role,roleId] = useRoleUser()
-    console.log(role,roleId);
-    
+  const navigate = useNavigate()
+    const [role] = useRoleUser()
+    useEffect(() => {
+        if (role === "Admin" ) {
+          navigate("/dashboard/all-parcels")
+        }
+        if (role === "user") {
+          navigate("/dashboard/book-parcels")
+        }
+        if (role === "Delivery-Men") {
+          navigate("/dashboard/delivery-tasks")
+        }
+    },[role,navigate])
   return (
     <>
     <Navbar></Navbar>
@@ -22,16 +32,16 @@ const Dashboard = () => {
           {role === "Admin" && (
             <>
               <li>
-                <Link to="/dashboard/all-parcels">All Parcels</Link>
+                <NavLink to="/dashboard/all-parcels">All Parcels</NavLink>
               </li>
               <li>
-                <Link to="/dashboard/all-users">All Users</Link>
+                <NavLink to="/dashboard/all-users">All Users</NavLink>
               </li>
               <li>
-                <Link to="/dashboard/all-delivery-men">All Delivery Men</Link>
+                <NavLink to="/dashboard/all-delivery-men">All Delivery Men</NavLink>
               </li>
               <li>
-                <Link to="/dashboard/statistics">Statistics</Link>
+                <NavLink to="/dashboard/statistics">Statistics</NavLink>
               </li>
             </>
           )}
@@ -39,13 +49,13 @@ const Dashboard = () => {
           {role === "user" && (
             <>
               <li>
-                <Link to="/dashboard/book-parcels">Book A Parcel</Link>
+                <NavLink to="/dashboard/book-parcels">Book A Parcel</NavLink>
               </li>
               <li>
-                <Link to="/dashboard/my-parcels">My Parcels</Link>
+                <NavLink to="/dashboard/my-parcels">My Parcels</NavLink>
               </li>
               <li>
-                <Link to="/dashboard/myprofile">My Profile</Link>
+                <NavLink to="/dashboard/myprofile">My Profile</NavLink>
               </li>
             </>
           )}
@@ -53,10 +63,10 @@ const Dashboard = () => {
           {role === "Delivery-Men" && (
             <>
               <li>
-                <Link to="/dashboard/delivery-tasks">Delivery Tasks</Link>
+                <NavLink to="/dashboard/delivery-tasks">Delivery Tasks</NavLink>
               </li>
               <li>
-                <Link to="/dashboard/profile">My Profile</Link>
+                <NavLink to="/dashboard/profile">My Profile</NavLink>
               </li>
             </>
           )}
