@@ -12,6 +12,7 @@
   "dependencies": {
     "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
     "@tanstack/react-query": "^5.64.1",
+    "aos": "^2.3.4",
     "apexcharts": "^4.3.0",
     "axios": "^1.7.9",
     "date-fns": "^4.1.0",

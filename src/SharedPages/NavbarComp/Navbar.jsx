@@ -3,7 +3,7 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import { Sweetalert } from "../../Hooks/UseSweetalerts/Sweetalert";
-
+import logo from '../../assets/icon.svg'
 const Navbar = () => {
   const { user, userLogout } = useAuth();
   // console.log(user);
@@ -20,11 +20,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="border-b-2 bg-gradient-to-r from-blue-500 to-purple-600  border-orange-300 text-white px-4 py-3 flex justify-between items-center">
+    <nav className=" bg-gradient-to-r from-blue-500 via-green-400 to-yellow-500 text-white px-4 py-3 flex justify-between items-center">
       {/* Logo and Website Name */}
       <div className="flex items-center gap-2">
-        <img src="/logo.png" alt="Logo" className="h-8 w-8" />
-        <span className="text-lg font-bold">Courier Bhai</span>
+        <img src={logo} alt="Logo" className="h-8 w-8" />
+        <span className="text-lg font-bold">Rocket-Courier</span>
       </div>
 
       {/* Navigation Items */}

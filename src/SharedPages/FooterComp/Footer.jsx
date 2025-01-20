@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-8">
+    <footer className="bg-slate-500 text-white py-8">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap justify-between items-center">
           <div className="w-full md:w-1/4 text-center md:text-left mb-4 md:mb-0">
-            <h2 className="text-2xl font-bold mb-2">Courier Bhai</h2>
+            <h2 className="text-2xl font-bold mb-2">Rocket-Courier</h2>
             <p>Delivering parcels with speed and precision.</p>
           </div>
           <div className="w-full md:w-1/2 mb-4 md:mb-0">

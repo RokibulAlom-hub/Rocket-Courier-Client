@@ -17,6 +17,7 @@ const MyParcels = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm();
   // get the my parcel
   const {
@@ -55,6 +56,7 @@ const MyParcels = () => {
 
     const response = await axiosSecure.post("/reviews", data);
      Sweetalert('Review Done','Successfully reveiw added','success')
+     reset()
     return response.data;
   };
   // get the delivery man id
