@@ -30,14 +30,18 @@ const Register = () => {
       });
   
       const userInfo = {
-        email: user?.email,
+        email: data?.email,
         name: data?.name,
         phoneNumber: data?.number,
         role: "user",
       };
+      console.log(userInfo);
+      
   
-      await axiosPublic.post(`/users`, userInfo);
-      navigate("/");
+     const response =  await axiosPublic.post(`/users`, userInfo);
+     navigate("/");
+     return console.log(response.data);
+     
     } catch (err) {
       console.error("Error:", err.message);
     }

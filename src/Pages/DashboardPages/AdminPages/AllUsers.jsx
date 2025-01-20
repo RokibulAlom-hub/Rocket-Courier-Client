@@ -1,6 +1,8 @@
 import useAllusers from "../../../Hooks/useAllusers";
+import useAxiossecure from "../../../Hooks/useAxiossecure";
 
 const AllUsers = () => {
+  const axiosSecure = useAxiossecure()
   const [users,refetch,isLoading,error] = useAllusers()
   if (isLoading) {
     return <div>Loading...</div>; // Show loading indicator while fetching
@@ -9,22 +11,11 @@ const AllUsers = () => {
   if (error) {
     return <div>Error fetching parcels: {error.message}</div>; // Show error message
   }
-  const handleRoleChange = (id, role) => {
-    // Send a request to the backend to update user role
-    fetch(`http://localhost:7000/users/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ role }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-        }
-      });
-    };
+  const handleRoleChange =async (id, role) => {
+    const response = await  axiosSecure.patch(`/users/${id}`,{role})
     refetch()
+    return response.data
+    };
 
   return (
     <div className="p-6">

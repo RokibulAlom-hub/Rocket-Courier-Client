@@ -6,7 +6,7 @@ import useAllusers from '../../../Hooks/useAllusers';
 const StatisticsCards = () => {
     const [parcels,isLoading,error] = useAllparcels()
     const [users] = useAllusers()
-    console.log(users);
+    // console.log(users);
     const parcelsDelivered = 10;
     if (isLoading) {
         return <div>Loading...</div>; // Show loading indicator while fetching

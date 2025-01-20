@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAxiospublic from "../../../Hooks/useAxiospublic";
 import useAuth from "../../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
@@ -8,6 +8,7 @@ import { format } from "date-fns";
 const UpdateParcel = () => {
   const { id } = useParams();
   const axiosPublic = useAxiospublic();
+  const navigate = useNavigate()
   const { user } = useAuth();
   const { register, handleSubmit, watch } = useForm();
   const parcelWeight = watch("parcelWeight");
@@ -31,6 +32,7 @@ const UpdateParcel = () => {
         const response = await axiosPublic.patch(`/update/parcel/${id}`, bookingData);
         // console.log(response);
         alert("update done");
+         navigate('/dashboard/my-parcels')
       } catch (error) {
         console.error("Error booking parcel:", error);
       }

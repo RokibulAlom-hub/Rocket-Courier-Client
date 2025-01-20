@@ -5,7 +5,7 @@ import useRoleUser from "../../../Hooks/useRoleusers";
 const MydeliveryLIst = () => {
   const axiosSecure = useAxiossecure();
   const [role, roleId] = useRoleUser();
-  console.log(roleId, role);
+  // console.log(roleId, role);
 
   const {
     data: deliveryList,
@@ -44,9 +44,11 @@ const MydeliveryLIst = () => {
     };
     const response = axiosSecure.patch(`/update-status/${id}`, deliverStatus);
     console.log(response.data);
+    refetch()
     alert("parcel delivered");
   };
-
+ 
+  
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <h1 className="text-2xl text-center font-bold mb-4">My Delivery List</h1>
@@ -73,13 +75,13 @@ const MydeliveryLIst = () => {
                 <td>{parcel.receiverName}</td>
                 <td>{parcel.phone}</td>
                 <td>{parcel.bookingDate}</td>
-                <td>{parcel.deliveryDate}</td>
+                <td>{parcel.App_delivery_date}</td>
                 <td>{parcel.receiverPhone}</td>
                 <td>{parcel.deliveryAddress}</td>
                 <td>
                   <button
                     onClick={() => handleCancel(parcel._id)}
-                    className={`p-2 rounded text-white ${
+                    className={`p-2 mb-2 rounded text-white ${
                       parcel.status === "delivered"
                         ? "bg-gray-400 cursor-not-allowed"
                         : "bg-red-600"
@@ -93,9 +95,9 @@ const MydeliveryLIst = () => {
                     className={`p-2 rounded text-white ${
                       parcel.status === "delivered"
                         ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-red-600"
+                        : "bg-green-600"
                     }`}
-                    disabled={parcel.status === "delivered"}
+                    disabled={parcel.status === "delivered" }
                   >
                     Deliver
                   </button>

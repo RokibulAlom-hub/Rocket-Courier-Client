@@ -3,9 +3,11 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiospublic from "../../../Hooks/useAxiospublic";
 import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 const BookParcel = () => {
   const axiosPublic = useAxiospublic();
+  const navigate = useNavigate()
   const { user } = useAuth();
   const { register, handleSubmit, watch } = useForm();
   const parcelWeight = watch("parcelWeight");
@@ -32,6 +34,7 @@ const BookParcel = () => {
       const response = await axiosPublic.post(`/parcels`, bookingData);
       // console.log(response);
       alert("Booking added");
+      navigate('/dashboard/my-parcels')
     } catch (error) {
       console.error("Error booking parcel:", error);
     }

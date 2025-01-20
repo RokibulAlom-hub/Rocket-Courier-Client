@@ -3,24 +3,44 @@ import { Link } from "react-router-dom";
 import useAxiossecure from "../../../Hooks/useAxiossecure";
 import useAuth from "../../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
+import { format } from "date-fns";
 
 const MyParcels = () => {
-  const [dmanId,setDmanid] = useState('')
+  const [dmanId, setDmanid] = useState("");
   const { user } = useAuth();
-  const [parcels, setParcel] = useState([]);
   const axiosSecure = useAxiossecure();
+  const [filter, setFilter] = useState("");
+  const formattedDate = format(new Date(), 'dd/MM/yyyy');
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  useEffect(() => {
-    axiosSecure.get(`/parcels?email=${user?.email}`).then((res) => {
-      setParcel(res.data);
-    });
-  }, [user?.email]);
+  // useEffect(() => {
+  //   axiosSecure.get(`/parcels?email=${user?.email}`).then((res) => {
+  //     setParcel(res.data);
+  //   });
+  // }, [user?.email]);
   // console.log(parcels);
-
+  const {
+    data: myparcel,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["userParcel"],
+    queryFn: async () => {
+      const response = await axiosSecure.get(`/parcels?email=${user?.email}`);
+      return response.data;
+    },
+  });
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error fetching parcels: {error.message}</div>;
+  }
   const handleCancel = (id) => {
     console.log("this is parcel id for cancel", id);
     const cancelStatus = {
@@ -32,13 +52,14 @@ const MyParcels = () => {
   };
   const onSubmit = async (data) => {
     console.log(data);
-    const response = await axiosSecure.post('/reviews',data)
-    alert('review creatd')
-    return response.data
+    
+    const response = await axiosSecure.post("/reviews", data);
+    alert("review created");
+    return response.data;
   };
-  const handledId = (id) =>{
-    setDmanid(id)
-  }
+  const handledId = (id) => {
+    setDmanid(id);
+  };
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
@@ -58,7 +79,7 @@ const MyParcels = () => {
             </tr>
           </thead>
           <tbody>
-            {parcels.map((parcel, index) => (
+            {myparcel.map((parcel, index) => (
               <tr key={parcel._id}>
                 <td>{index + 1}</td>
                 <td>{parcel.parcelType}</td>
@@ -94,7 +115,11 @@ const MyParcels = () => {
 
                   {/* Review Button */}
                   {parcel.status === "delivered" && parcel.deliverymanId && (
-                    <label onClick={() => handledId(parcel.deliverymanId)} htmlFor="review-modal" className="btn btn-primary">
+                    <label
+                      onClick={() => handledId(parcel.deliverymanId)}
+                      htmlFor="review-modal"
+                      className="btn btn-primary"
+                    >
                       Give Review
                     </label>
                   )}
@@ -163,7 +188,21 @@ const MyParcels = () => {
                       max="5"
                     />
                   </div>
-
+                  {/* Date */}
+                  <div>
+                    {" "}
+                    <label className="label">
+                      {" "}
+                      <span className="label-text">Current Date</span>{" "}
+                    </label>{" "}
+                    <input
+                      type="text"
+                      defaultValue={formattedDate}
+                      {...register("reviewDate")}
+                      className="input input-bordered w-full"
+                      readOnly
+                    />{" "}
+                  </div>
                   {/* Feedback */}
                   <div>
                     <label className="label">

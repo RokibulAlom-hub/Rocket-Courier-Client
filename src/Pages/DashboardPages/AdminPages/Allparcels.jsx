@@ -21,15 +21,17 @@ const AllParcels = () => {
   //     return response.data;
   //   },
   // });
-  console.log(parcels);
+  // console.log(parcels);
   const handleManage = async (id) => {
-    console.log(id, dMan._id, appDate);
+    // console.log(id, dMan, appDate);
 
     const updateMange = {
       appDate,
       dmanId: dMan._id,
       status: "On the Way",
     };
+    console.log(updateMange);
+    
     const response = await axiosSecure.patch(
       `/manage-parcel/${id}`,
       updateMange
@@ -99,6 +101,7 @@ const AllParcels = () => {
                         }}
                         className="w-1/2 p-1 border rounded border-red-300"
                       >
+                        <option value="">select delivery man</option>
                         {deliveryMan.map((dman) => (
                           <option key={dman?._id} value={dman?.name}>
                             {dman?.name}
