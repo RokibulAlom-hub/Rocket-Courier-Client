@@ -44,11 +44,10 @@ const MydeliveryLIst = () => {
     };
     const response = axiosSecure.patch(`/update-status/${id}`, deliverStatus);
     console.log(response.data);
-    refetch()
+    refetch();
     alert("parcel delivered");
   };
- 
-  
+
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <h1 className="text-2xl text-center font-bold mb-4">My Delivery List</h1>
@@ -79,28 +78,25 @@ const MydeliveryLIst = () => {
                 <td>{parcel.receiverPhone}</td>
                 <td>{parcel.deliveryAddress}</td>
                 <td>
-                  <button
-                    onClick={() => handleCancel(parcel._id)}
-                    className={`p-2 mb-2 rounded text-white ${
-                      parcel.status === "delivered"
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-red-600"
-                    }`}
-                    disabled={parcel.status === "delivered"}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={() => handleDeliver(parcel._id)}
-                    className={`p-2 rounded text-white ${
-                      parcel.status === "delivered"
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-green-600"
-                    }`}
-                    disabled={parcel.status === "delivered" }
-                  >
-                    Deliver
-                  </button>
+                  {parcel.status === "delivered" ? (
+                    "Completed"
+                  ) : (
+                    <>
+                      {" "}
+                      <button
+                        onClick={() => handleCancel(parcel._id)}
+                        className={`p-2 mb-2 rounded text-white bg-red-600`}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={() => handleDeliver(parcel._id)}
+                        className={`p-2 rounded text-white bg-green-600`}
+                      >
+                        Deliver
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}
