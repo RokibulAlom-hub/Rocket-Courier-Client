@@ -11,27 +11,22 @@ const MyParcels = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiossecure();
   const [filter, setFilter] = useState("");
-  const formattedDate = format(new Date(), 'dd/MM/yyyy');
+  const formattedDate = format(new Date(), "dd/MM/yyyy");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  // useEffect(() => {
-  //   axiosSecure.get(`/parcels?email=${user?.email}`).then((res) => {
-  //     setParcel(res.data);
-  //   });
-  // }, [user?.email]);
-  // console.log(parcels);
+  // get the my parcel
   const {
     data: myparcel,
     isLoading,
     error,
     refetch,
   } = useQuery({
-    queryKey: ["userParcel"],
+    queryKey: ["userParcel",filter],
     queryFn: async () => {
-      const response = await axiosSecure.get(`/parcels?email=${user?.email}`);
+      const response = await axiosSecure.get(`/parcels?email=${user?.email}&filter=${filter}`);
       return response.data;
     },
   });
@@ -41,6 +36,8 @@ const MyParcels = () => {
   if (error) {
     return <div>Error fetching parcels: {error.message}</div>;
   }
+  // handle
+  // status cancel
   const handleCancel = (id) => {
     console.log("this is parcel id for cancel", id);
     const cancelStatus = {
@@ -48,22 +45,41 @@ const MyParcels = () => {
     };
     const response = axiosSecure.patch(`/update-status/${id}`, cancelStatus);
     console.log(response.data);
+    refetch();
     alert("parcel cancel");
   };
+  // reveiw for deliveryman
   const onSubmit = async (data) => {
     console.log(data);
-    
+
     const response = await axiosSecure.post("/reviews", data);
     alert("review created");
     return response.data;
   };
+  // get the delivery man id
   const handledId = (id) => {
     setDmanid(id);
   };
-
+  console.log(filter);
+  
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">My Parcels</h1>
+      <div>
+        <select
+          name="status"
+          id="status"
+          className="border font-bold p-2 border-red-300 rounded-lg"
+          onChange={(e) => setFilter(e.target.value)}
+          value={filter}
+        >
+          <option value="">Filter By Status</option>
+          <option value="delivered">Delivered</option>
+          <option value="pending">Pending</option>
+          <option value="On the Way">On the Way</option>
+          <option value="cancel">Cancel</option>
+        </select>
+      </div>
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>

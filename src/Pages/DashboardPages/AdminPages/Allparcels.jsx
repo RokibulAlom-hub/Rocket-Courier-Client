@@ -8,20 +8,7 @@ const AllParcels = () => {
   const { deliveryMan } = useDeliveryman();
   const [appDate, setAppdate] = useState("");
   const [dMan, setDman] = useState(null);
-  const  [parcels,isLoading,error] = useAllparcels()
-  // Using react-query to fetch all parcels
-  // const {
-  //   data: parcels,
-  //   isLoading,
-  //   error,
-  // } = useQuery({
-  //   queryKey: ["allparcels"],
-  //   queryFn: async () => {
-  //     const response = await axiosSecure.get("/allparcels");
-  //     return response.data;
-  //   },
-  // });
-  // console.log(parcels);
+  const [parcels, isLoading, error] = useAllparcels();
   const handleManage = async (id) => {
     // console.log(id, dMan, appDate);
 
@@ -30,22 +17,25 @@ const AllParcels = () => {
       dmanId: dMan._id,
       status: "On the Way",
     };
-    console.log(updateMange);
-    
+    // console.log(updateMange);
+
     const response = await axiosSecure.patch(
       `/manage-parcel/${id}`,
       updateMange
     );
     console.log(response.data);
-    return response.data;
+    const modal = document.getElementById(`modal_${id}`);
+    if (modal) {
+      modal.close();
+    }
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; // Show loading indicator while fetching
+    return <div>Loading...</div>; 
   }
 
   if (error) {
-    return <div>Error fetching parcels: {error.message}</div>; // Show error message
+    return <div>Error fetching parcels: {error.message}</div>; 
   }
 
   return (
@@ -86,6 +76,7 @@ const AllParcels = () => {
                   >
                     Manage
                   </button>
+                  {/* modal */}
                   <dialog id={`modal_${parcel._id}`} className="modal">
                     <div className="modal-box">
                       <h1 className="text-2xl text-center font-bold mb-4">
