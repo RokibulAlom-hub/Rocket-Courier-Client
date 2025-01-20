@@ -1,9 +1,10 @@
 import useAllusers from "../../../Hooks/useAllusers";
 import useAxiossecure from "../../../Hooks/useAxiossecure";
+import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 
 const AllUsers = () => {
-  const axiosSecure = useAxiossecure()
-  const [users,refetch,isLoading,error] = useAllusers()
+  const axiosSecure = useAxiossecure();
+  const [users, refetch, isLoading, error] = useAllusers();
   if (isLoading) {
     return <div>Loading...</div>; // Show loading indicator while fetching
   }
@@ -11,11 +12,12 @@ const AllUsers = () => {
   if (error) {
     return <div>Error fetching parcels: {error.message}</div>; // Show error message
   }
-  const handleRoleChange =async (id, role) => {
-    const response = await  axiosSecure.patch(`/users/${id}`,{role})
-    refetch()
-    return response.data
-    };
+  const handleRoleChange = async (id, role) => {
+    const response = await axiosSecure.patch(`/users/${id}`, { role });
+    Sweetalert(`${role} Added`, `You make ${role}`, "success");
+    refetch();
+    return response.data;
+  };
 
   return (
     <div className="p-6">
@@ -39,7 +41,9 @@ const AllUsers = () => {
                 <td>{index + 1}</td>
                 <td>{user.name}</td>
                 <td>{user.phoneNumber || "N/A"}</td>
-                <td className="bg-black rounded-lg text-white font-bold">{user.role}</td>
+                <td className="bg-black rounded-lg text-white font-bold">
+                  {user.role}
+                </td>
                 <td>
                   {user.role !== "Admin" && (
                     <button

@@ -2,6 +2,7 @@ import useDeliveryman from "../../../Hooks/useDeliveryman";
 import { useState } from "react";
 import useAxiossecure from "../../../Hooks/useAxiossecure";
 import useAllparcels from "../../../Hooks/useAllparcels";
+import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 
 const AllParcels = () => {
   const axiosSecure = useAxiossecure();
@@ -28,14 +29,17 @@ const AllParcels = () => {
     if (modal) {
       modal.close();
     }
+     Sweetalert('Assign Man','Successfully Assign Delivery Man','success')
   };
-
+  
   if (isLoading) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
+  
+  
 
   if (error) {
-    return <div>Error fetching parcels: {error.message}</div>; 
+    return <div>Error fetching parcels: {error.message}</div>;
   }
 
   return (

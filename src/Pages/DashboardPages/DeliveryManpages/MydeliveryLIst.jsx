@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiossecure, { axiosSecure } from "../../../Hooks/useAxiossecure";
 import useRoleUser from "../../../Hooks/useRoleusers";
+import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 
 const MydeliveryLIst = () => {
   const axiosSecure = useAxiossecure();
   const [role, roleId] = useRoleUser();
-  // console.log(roleId, role);
+  console.log(roleId, role);
 
   const {
     data: deliveryList,
@@ -33,6 +34,7 @@ const MydeliveryLIst = () => {
       status: "cancel",
     };
     const response = axiosSecure.patch(`/update-status/${id}`, cancelStatus);
+    refetch()
     console.log(response.data);
     alert("parcel cancel");
   };
@@ -42,10 +44,10 @@ const MydeliveryLIst = () => {
     const deliverStatus = {
       status: "delivered",
     };
-    const response = axiosSecure.patch(`/update-status/${id}`, deliverStatus);
-    console.log(response.data);
+    const response = axiosSecure.patch(`/update-status/${id}?dmanID=${roleId}`, deliverStatus);
     refetch();
-    alert("parcel delivered");
+    console.log(response.data);
+     Sweetalert('Delivery Done','Successfully delivered','success')
   };
 
   return (

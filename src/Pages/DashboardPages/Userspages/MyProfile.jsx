@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiospublic from "../../../Hooks/useAxiospublic";
+import { useNavigate } from "react-router-dom";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const MyProfile = () => {
   const axiosPublic = useAxiospublic();
   const { user, updateUserData } = useAuth();
   const { register, handleSubmit } = useForm();
-
+  const navigate = useNavigate()
   const onSubmit = async (data) => {
     try {
       // Log form data for debugging
@@ -32,6 +33,7 @@ const MyProfile = () => {
       // Log success and provide user feedback
       console.log("Profile updated successfully:", updateData);
       alert("Profile updated successfully!");
+      navigate('/dashboard/book-parcels')
     } catch (error) {
       // Log the error and handle it
       console.error("Error updating profile:", error.message);

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import { Sweetalert } from "../../Hooks/UseSweetalerts/Sweetalert";
 
 const Navbar = () => {
   const { user, userLogout } = useAuth();
@@ -13,6 +14,7 @@ const Navbar = () => {
   const handleLogout = () => {
     userLogout().then((res) => {
       // console.log(res.user);
+       Sweetalert('Log Out','Successfully Log Out','success')
       navigate("/login");
     });
   };

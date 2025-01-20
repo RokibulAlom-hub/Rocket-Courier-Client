@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import SocialLogin from "../../../Hooks/SocialLogin";
 import useAxiospublic from "../../../Hooks/useAxiospublic";
+import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const Register = () => {
@@ -22,13 +23,13 @@ const Register = () => {
       const res = await axiosPublic.post(image_hosting_api, imageFile, {
         headers: { "content-type": "multipart/form-data" },
       });
-  
+
       const user = await createUserByemail(data?.email, data?.password);
       await updateUserData({
         displayName: data?.name,
         photoURL: res.data.data.display_url,
       });
-  
+
       const userInfo = {
         email: data?.email,
         name: data?.name,
@@ -36,17 +37,15 @@ const Register = () => {
         role: "user",
       };
       console.log(userInfo);
-      
-  
-     const response =  await axiosPublic.post(`/users`, userInfo);
-     navigate("/");
-     return console.log(response.data);
-     
+
+      const response = await axiosPublic.post(`/users`, userInfo);
+      Sweetalert("Register", "Successfully Registered", "success");
+      navigate("/");
+      return console.log(response.data);
     } catch (err) {
       console.error("Error:", err.message);
     }
   };
-  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

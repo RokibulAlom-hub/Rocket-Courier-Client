@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider/AuthProvider";
 import SocialLogin from "../../../Hooks/SocialLogin";
+import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 
 const Login = () => {
       const navigate = useNavigate()
@@ -16,16 +17,17 @@ const Login = () => {
     userLogin(data?.email,data?.password)
     .then(res => {
         // console.log(res.user);
+        Sweetalert('Logged In','Successfully Logged In','success')
         navigate('/')
     })
   }
-  const handleGoogleLogin = () => {
-    googlelogin()
-    .then(result => {
-        // console.log(result.user);
-        
-    })
-  };
+  // const handleGoogleLogin = () => {
+  //   googlelogin()
+  //   .then(result => {
+  //       // console.log(result.user);
+  //       <Sweetalert title={"Logged In"} text={"Successfully Logged In "} type={"success"}></Sweetalert>
+  //   })
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

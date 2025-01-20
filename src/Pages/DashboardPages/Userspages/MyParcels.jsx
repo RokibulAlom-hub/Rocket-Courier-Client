@@ -5,6 +5,7 @@ import useAuth from "../../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 
 const MyParcels = () => {
   const [dmanId, setDmanid] = useState("");
@@ -53,7 +54,7 @@ const MyParcels = () => {
     console.log(data);
 
     const response = await axiosSecure.post("/reviews", data);
-    alert("review created");
+     Sweetalert('Review Done','Successfully reveiw added','success')
     return response.data;
   };
   // get the delivery man id

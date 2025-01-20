@@ -31,10 +31,10 @@ const AllDeliveryMen = () => {
                 <tbody>
                     {deliveryMan.map((deliveryMan) => (
                         <tr key={deliveryMan._id}>
-                            <td className="py-2 px-4 border-b">{deliveryMan.name}</td>
-                            <td className="py-2 px-4 border-b">{deliveryMan.phoneNumber}</td>
-                            <td className="py-2 px-4 border-b">{deliveryMan.parcelsDelivered}</td>
-                            <td className="py-2 px-4 border-b">{deliveryMan.averageReview}</td>
+                            <td className="py-2 text-center px-2 border">{deliveryMan.name}</td>
+                            <td className="py-2 text-center px-2 border">{deliveryMan.phoneNumber}</td>
+                            <td className="py-2 text-center text-red-400 font-bold px-2 border">{deliveryMan.delivered}</td>
+                            <td className="py-2 text-center px-2 border">{deliveryMan.averageReview}</td>
                         </tr>
                     ))}
                 </tbody>
