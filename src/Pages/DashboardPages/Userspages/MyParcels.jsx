@@ -53,7 +53,7 @@ const MyParcels = () => {
   // reveiw for deliveryman
   const onSubmit = async (data) => {
     console.log(data);
-
+    // const rating = parseFloat(data.rating);
     const response = await axiosSecure.post("/reviews", data);
      Sweetalert('Review Done','Successfully reveiw added','success')
      reset()
@@ -197,7 +197,7 @@ const MyParcels = () => {
                     </label>
                     <input
                       type="number"
-                      {...register("rating", {
+                      {...register ("rating", {
                         required: true,
                         min: 1,
                         max: 5,
