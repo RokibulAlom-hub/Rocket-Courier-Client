@@ -4,10 +4,11 @@ import useAuth from "../../../Hooks/useAuth";
 import useAxiospublic from "../../../Hooks/useAxiospublic";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 
 const BookParcel = () => {
   const axiosPublic = useAxiospublic();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { register, handleSubmit, watch } = useForm();
   const parcelWeight = watch("parcelWeight");
@@ -19,28 +20,27 @@ const BookParcel = () => {
       ? 100
       : 150
     : 0;
-    console.log(user);
-    
+  console.log(user);
+
   const onSubmit = async (data) => {
     const bookingData = {
       ...data,
       bookingDate: format(new Date(), "dd/MM/yyyy"),
       price,
-      email:user?.email,
-      name:user?.displayName,
-      status: "pending", 
+      email: user?.email,
+      name: user?.displayName,
+      status: "pending",
     };
     try {
       const response = await axiosPublic.post(`/parcels`, bookingData);
       // console.log(response);
-      alert("Booking added");
-      navigate('/dashboard/my-parcels')
+      Sweetalert("Booked", "Successfully Parcel Booked", "success");
+      navigate("/dashboard/my-parcels");
     } catch (error) {
       console.error("Error booking parcel:", error);
     }
 
     // console.log("Booking Data:", bookingData);
-
   };
 
   return (

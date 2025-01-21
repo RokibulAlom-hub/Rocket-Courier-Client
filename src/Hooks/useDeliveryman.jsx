@@ -8,7 +8,8 @@ const useDeliveryman = () => {
     const {
         data: deliveryMan = [], // Default to an empty array
         isLoading,
-        error, // Capture errors
+        error,
+        refetch // Capture errors
     } = useQuery({
         queryKey: ["allDeliveryMen"],
         queryFn: async () => {
@@ -17,7 +18,7 @@ const useDeliveryman = () => {
         },
     });
 
-    return { deliveryMan, isLoading, error }; // Return as an object for better readability
+    return { deliveryMan, isLoading, error,refetch }; // Return as an object for better readability
 };
 
 export default useDeliveryman;

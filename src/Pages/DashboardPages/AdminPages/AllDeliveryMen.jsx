@@ -3,18 +3,6 @@ import useDeliveryman from '../../../Hooks/useDeliveryman';
 const AllDeliveryMen = () => {
     const {deliveryMan} = useDeliveryman();
     console.log(deliveryMan);
-    
-    // const [deliveryMen, setDeliveryMen] = useState([]);
-
-    // useEffect(() => {
-    //     axiosSecure.get(`/alldelivery?role=Delivery-Men`)
-    //     .then(res => {
-    //         setDeliveryMen(res.data);
-    //     })
-    //     .catch(error => {
-    //         console.error("Failed to fetch delivery men:", error);
-    //     });
-    // }, []);
 
     return (
         <div>

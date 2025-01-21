@@ -9,7 +9,7 @@ const AllParcels = () => {
   const { deliveryMan } = useDeliveryman();
   const [appDate, setAppdate] = useState("");
   const [dMan, setDman] = useState(null);
-  const [parcels, isLoading, error] = useAllparcels();
+  const [parcels, isLoading, error,refetch] = useAllparcels();
   const handleManage = async (id) => {
     // console.log(id, dMan, appDate);
 
@@ -25,6 +25,7 @@ const AllParcels = () => {
       updateMange
     );
     console.log(response.data);
+    refetch()
     const modal = document.getElementById(`modal_${id}`);
     if (modal) {
       modal.close();

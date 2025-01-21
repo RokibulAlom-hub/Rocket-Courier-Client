@@ -34,19 +34,19 @@ const MydeliveryLIst = () => {
       status: "cancel",
     };
     const response = axiosSecure.patch(`/update-status/${id}`, cancelStatus);
-    refetch()
     console.log(response.data);
+    refetch()
     alert("parcel cancel");
   };
 
-  const handleDeliver = (id) => {
+  const handleDeliver = async (id) => {
     console.log("this is parcel id for deliver", id);
     const deliverStatus = {
       status: "delivered",
     };
-    const response = axiosSecure.patch(`/update-status/${id}?dmanID=${roleId}`, deliverStatus);
-    refetch();
+    const response = await axiosSecure.patch(`/update-status/${id}?dmanID=${roleId}`, deliverStatus);
     console.log(response.data);
+    refetch();
      Sweetalert('Delivery Done','Successfully delivered','success')
   };
 

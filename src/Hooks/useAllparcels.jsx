@@ -8,6 +8,7 @@ const useAllparcels = () => {
         data: parcels,
         isLoading,
         error,
+        refetch
       } = useQuery({
         queryKey: ["allparcels"],
         queryFn: async () => {
@@ -15,7 +16,7 @@ const useAllparcels = () => {
           return response.data;
         },
       });
-      return [parcels,isLoading,error]
+      return [parcels,isLoading,error,refetch]
 };
 
 export default useAllparcels;
