@@ -33,8 +33,10 @@ const Register = () => {
       const userInfo = {
         email: data?.email,
         name: data?.name,
+        photoURL: res.data.data.display_url,
         phoneNumber: data?.number,
         role: "user",
+
       };
       console.log(userInfo);
 

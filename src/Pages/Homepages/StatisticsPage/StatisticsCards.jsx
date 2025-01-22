@@ -6,12 +6,12 @@ import useAllusers from '../../../Hooks/useAllusers';
 const StatisticsCards = () => {
     const [parcels,isLoading,error] = useAllparcels()
     const [users] = useAllusers()
-    // console.log(users);
     if (isLoading) {
-        return <div>Loading...</div>; // Show loading indicator while fetching
-      }
-      // filter the delivey parcels
-      const deliverdParcels = parcels.filter((parcel) => parcel.status === "delivered");
+      return <div>Loading...</div>; // Show loading indicator while fetching
+    }
+    // filter the delivey parcels
+    const deliverdParcels = parcels.filter((parcel) => parcel.status === "delivered");
+    console.log(deliverdParcels);
     
       if (error) {
         return <div>Error fetching parcels: {error.message}</div>; // Show error message

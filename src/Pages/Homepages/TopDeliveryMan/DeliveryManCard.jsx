@@ -3,15 +3,16 @@ import useDeliveryman from "../../../Hooks/useDeliveryman";
 
 const DeliveryManCard = () => {
   const { deliveryMan } = useDeliveryman();
-
+  console.log(deliveryMan);
+  const limitDeliveyMan = deliveryMan.slice(0,3)
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {deliveryMan.map((man) => (
+      {limitDeliveyMan.map((man) => (
         <div key={man._id} className="bg-white rounded-lg shadow-md overflow-hidden m-4">
           <div className="relative">
             <img
               className="w-full h-48 object-cover"
-              src={man.imageUrl}
+              src={man.photoURL}
               alt={man.name}
             />
           </div>
@@ -21,7 +22,7 @@ const DeliveryManCard = () => {
               Parcels Delivered: <span className="font-medium">{man.delivered}</span>
             </p>
             <p className="text-sm text-gray-600 mt-2">
-              Average Rating: <span className="font-medium">{man.rating}</span>
+              Average Rating: <span className="font-medium">{Math.round(man.averageReveiw)}</span>
             </p>
           </div>
         </div>

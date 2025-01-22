@@ -14,6 +14,7 @@ const SocialLogin = () => {
         // console.log(result.user)
         const userInfo = {
           email: result?.user?.email,
+          photoURL:result?.user?.photoURL,
           name: result?.user?.displayName,
           role: "user",
         };

@@ -68,6 +68,9 @@ const Dashboard = () => {
               <li>
                 <NavLink to="/dashboard/profile">My Profile</NavLink>
               </li>
+              <li>
+                <NavLink to="/dashboard/myprofile">My update Profile</NavLink>
+              </li>
             </>
           )}
         </ul>

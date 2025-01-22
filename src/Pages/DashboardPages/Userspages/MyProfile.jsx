@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiospublic from "../../../Hooks/useAxiospublic";
 import { useNavigate } from "react-router-dom";
+import useRoleUser from "../../../Hooks/useRoleusers";
+import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const MyProfile = () => {
@@ -10,6 +12,7 @@ const MyProfile = () => {
   const { user, updateUserData } = useAuth();
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate()
+  const [role,roleId] = useRoleUser()
   const onSubmit = async (data) => {
     try {
       // Log form data for debugging
@@ -26,13 +29,18 @@ const MyProfile = () => {
         displayName: data.name,
         photoURL: res.data.data.display_url,
       };
-
+       const updateApi = {
+        name:data.name,
+        photoURL:res.data.data.display_url,
+       }
       // Call the updateUserData function
       await updateUserData(updateData);
-
+      const response  = await axiosPublic.patch(`/users/update?roleId=${roleId}`,{updateApi})
+      console.log(response.data);
+      
       // Log success and provide user feedback
-      console.log("Profile updated successfully:", updateData);
-      alert("Profile updated successfully!");
+      console.log("Profile updated successfully:", updateData,updateApi);
+      Sweetalert('Updated',"successfull updated","success")
       navigate('/dashboard/book-parcels')
     } catch (error) {
       // Log the error and handle it

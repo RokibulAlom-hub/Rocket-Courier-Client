@@ -7,7 +7,7 @@ const AllDeliveryMen = () => {
     const calculateReveiw = (reveiw) => {
         if(reveiw && reveiw?.length > 0){
             const sum = reveiw.reduce((acc,curr) => acc + curr , 0);
-        return(sum/reveiw.length)
+        return(Math.round(sum/reveiw.length))
         }
         return "N/A"
     }
