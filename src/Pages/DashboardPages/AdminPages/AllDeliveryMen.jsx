@@ -1,41 +1,46 @@
 import useDeliveryman from '../../../Hooks/useDeliveryman';
 
 const AllDeliveryMen = () => {
-    const {deliveryMan} = useDeliveryman();
+    const { deliveryMan } = useDeliveryman();
 
-    // make a function for reveidw avearage
+    // Function to calculate average review
     const calculateReveiw = (reveiw) => {
-        if(reveiw && reveiw?.length > 0){
-            const sum = reveiw.reduce((acc,curr) => acc + curr , 0);
-        return(Math.round(sum/reveiw.length))
+        if (reveiw && reveiw?.length > 0) {
+            const sum = reveiw.reduce((acc, curr) => acc + curr, 0);
+            return Math.round(sum / reveiw.length);
         }
-        return "N/A"
-    }
+        return "N/A";
+    };
 
     return (
-        <div>
-            
-            <h1 className="text-2xl font-bold mb-4">All Delivery Men</h1>
-            <table className="min-w-full bg-white border border-gray-300">
-                <thead>
-                    <tr>
-                        <th className="py-2 px-4 border-b">Name</th>
-                        <th className="py-2 px-4 border-b">Phone Number</th>
-                        <th className="py-2 px-4 border-b">Parcels Delivered</th>
-                        <th className="py-2 px-4 border-b">Average Review</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {deliveryMan.map((dmans) => (
-                        <tr key={dmans._id}>
-                            <td className="py-2 text-center px-2 border">{dmans.name}</td>
-                            <td className="py-2 text-center px-2 border">{dmans.phoneNumber}</td>
-                            <td className="py-2 text-center text-red-400 font-bold px-2 border">{dmans.delivered}</td>
-                            <td className="py-2 text-center text-green-500 px-2 border">{calculateReveiw(dmans.ratings)}</td>
+        <div className="p-6 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 rounded-lg shadow-lg">
+            <h1 className="text-3xl font-bold text-center text-purple-700 mb-6">
+                All Delivery Men
+            </h1>
+            <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
+                <table className="min-w-full bg-white text-center text-gray-700 border-collapse">
+                    <thead className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white">
+                        <tr>
+                            <th className="py-3 px-6 border-b">Name</th>
+                            <th className="py-3 px-6 border-b">Phone Number</th>
+                            <th className="py-3 px-6 border-b">Parcels Delivered</th>
+                            <th className="py-3 px-6 border-b">Average Review</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {deliveryMan.map((dmans) => (
+                            <tr key={dmans._id} className={`${dmans._id % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}>
+                                <td className="py-3 px-6 border">{dmans.name}</td>
+                                <td className="py-3 px-6 border">{dmans.phoneNumber}</td>
+                                <td className="py-3 px-6 border text-red-500 font-semibold">{dmans.delivered}</td>
+                                <td className="py-3 px-6 border text-green-500 font-semibold">
+                                    {calculateReveiw(dmans.ratings)}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

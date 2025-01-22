@@ -6,33 +6,31 @@ import SocialLogin from "../../../Hooks/SocialLogin";
 import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 
 const Login = () => {
-      const navigate = useNavigate()
-    const {userLogin,googlelogin} = useContext(AuthContext)
+  const navigate = useNavigate();
+  const { userLogin } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onsubmit = (data) => {
-    userLogin(data?.email,data?.password)
-    .then(res => {
-        // console.log(res.user);
-        Sweetalert('Logged In','Successfully Logged In','success')
-        navigate('/')
-    })
-  }
-  // const handleGoogleLogin = () => {
-  //   googlelogin()
-  //   .then(result => {
-  //       // console.log(result.user);
-  //       <Sweetalert title={"Logged In"} text={"Successfully Logged In "} type={"success"}></Sweetalert>
-  //   })
-  // };
+    userLogin(data.email, data.password)
+      .then((res) => {
+        Sweetalert("Logged In", "Successfully Logged In", "success");
+        navigate("/");
+      })
+      .catch((error) => {
+        Sweetalert("Error", error.message, "error");
+      });
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-        <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
+        <h2 className="text-3xl font-bold text-center mb-6 text-blue-900">
+          Login
+        </h2>
         <form onSubmit={handleSubmit(onsubmit)}>
           {/* Email Field */}
           <div className="mb-4">
@@ -74,12 +72,17 @@ const Login = () => {
             Login
           </button>
         </form>
-          <div>Dont have an account <Link to="/register" className="text-red-500">Register</Link></div>
+        <div className="mt-4 text-center">
+          Don't have an account?{" "}
+          <Link to="/register" className="text-blue-500 hover:text-blue-700">
+            Register
+          </Link>
+        </div>
 
         {/* Google Login Button */}
         <div className="mt-6 text-center">
           <p className="text-gray-600 mb-2">Or</p>
-        <SocialLogin></SocialLogin>
+          <SocialLogin />
         </div>
       </div>
     </div>
