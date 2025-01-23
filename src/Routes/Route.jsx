@@ -75,7 +75,7 @@ export const router = createBrowserRouter([
         {
             path:"/dashboard/update/parcel/:id",
             element:<UpdateParcel></UpdateParcel>,
-            loader: ({ params }) => fetch(`http://localhost:7000/update/parcel/${params.id}`)
+            loader: ({ params }) => fetch(`https://b10a12-server-side-rokibul-alom-hub.vercel.app/${params.id}`)
 
         },
         {

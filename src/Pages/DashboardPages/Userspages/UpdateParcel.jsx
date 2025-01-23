@@ -4,6 +4,7 @@ import useAxiospublic from "../../../Hooks/useAxiospublic";
 import useAuth from "../../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
+import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 
 const UpdateParcel = () => {
   const { id } = useParams();
@@ -31,7 +32,7 @@ const UpdateParcel = () => {
       try {
         const response = await axiosPublic.patch(`/update/parcel/${id}`, bookingData);
         // console.log(response);
-        alert("update done");
+        Sweetalert("updated","update done","succeess")
          navigate('/dashboard/my-parcels')
       } catch (error) {
         console.error("Error booking parcel:", error);
@@ -43,7 +44,7 @@ const UpdateParcel = () => {
 
   return (
     <div className="p-6 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Book a Parcel</h1>
+      <h1 className="text-2xl font-bold mb-4">Update the Parcel</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <label className="block font-medium mb-1">Name</label>
@@ -173,7 +174,7 @@ const UpdateParcel = () => {
         </div>
 
         <button type="submit" className="btn btn-primary w-full">
-          Book Parcel
+          Update Parcel
         </button>
       </form>
     </div>

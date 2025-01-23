@@ -7,14 +7,14 @@ import AOS from "aos";
 
 const StatisticsCards = () => {
   const [parcels, isLoading, error] = useAllparcels();
-  const [users] = useAllusers();
+  const [users,laoding,err] = useAllusers();
 
   useEffect(() => {
     AOS.init({ duration: 1000 }); 
   }, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>; 
+  if (isLoading || laoding) {
+    return <div>🍭 Loading sweet content... Hang tight! 🍭 </div>; 
   }
 
   // Filter the delivered parcels
@@ -22,7 +22,7 @@ const StatisticsCards = () => {
     (parcel) => parcel.status === "delivered"
   );
 
-  if (error) {
+  if (error || err) {
     return <div>Error fetching parcels: {error.message}</div>; // Show error message
   }
 

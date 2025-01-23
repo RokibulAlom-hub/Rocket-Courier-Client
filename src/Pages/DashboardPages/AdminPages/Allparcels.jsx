@@ -68,9 +68,12 @@ const AllParcels = () => {
                 <td>{parcel.price} Tk</td>
                 <td>
                   <span
-                    className={`py-1 px-3 rounded-full font-bold ${
-                      parcel.status === "On the Way" ? "bg-green-500 text-white" : "bg-yellow-500 text-black"
-                    }`}
+                   className={`py-1 px-3 rounded-full font-bold ${
+                    parcel.status === "On the Way" ? "bg-blue-500 text-white" :
+                    parcel.status === "cancel" ? "bg-red-500 text-white" :
+                    parcel.status === "delivered" ? "bg-green-500 text-white" :
+                    parcel.status === "pending" ? "bg-yellow-500 text-black" : ""
+                  }`}
                   >
                     {parcel.status}
                   </span>

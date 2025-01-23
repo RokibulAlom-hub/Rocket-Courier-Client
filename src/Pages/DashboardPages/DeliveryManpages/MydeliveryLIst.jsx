@@ -7,8 +7,9 @@ import {
   FaPhone,
   FaMapMarkerAlt,
   FaCalendarAlt,
-  FaTrashAlt,
   FaCheckCircle,
+  FaTimesCircle,
+  FaClock,
 } from "react-icons/fa";
 
 const MydeliveryLIst = () => {
@@ -25,12 +26,12 @@ const MydeliveryLIst = () => {
     queryKey: ["deliveryList"],
     queryFn: async () => {
       const response = await axiosSecure.get(`/delivery-man-list/${roleId}`);
-      return response.data; // Return the data here
+      return response.data;
     },
   });
 
   const handleCancel = async (id) => {
-    if (window.confirm("Are you sure you want to cancel this parcel?")) {
+    if (id) {
       const cancelStatus = {
         status: "cancel",
       };
@@ -40,12 +41,12 @@ const MydeliveryLIst = () => {
       );
       console.log(response.data);
       refetch();
-      alert("Parcel canceled");
+      Sweetalert("Canceled", "SuccessFully cancel ", "success");
     }
   };
 
   const handleDeliver = async (id) => {
-    if (window.confirm("Confirm delivery of this parcel?")) {
+    if (id) {
       const deliverStatus = {
         status: "delivered",
       };
@@ -149,23 +150,29 @@ const MydeliveryLIst = () => {
                         <FaCheckCircle className="mr-1" />
                         Completed
                       </span>
-                    ) : (
-                      <div className="flex space-x-2">
-                        <button
-                          onClick={() => handleCancel(parcel._id)}
-                          title="Cancel"
-                          className="text-red-600 hover:text-red-800"
-                        >
-                          <FaTrashAlt />
-                        </button>
-                        <button
-                          onClick={() => handleDeliver(parcel._id)}
-                          title="Deliver"
-                          className="text-green-600 hover:text-green-800"
-                        >
-                          <FaCheckCircle />
-                        </button>
-                      </div>
+                    ) : parcel.status === "cancel" ? (
+                      <span className="flex items-center text-red-600">
+                        <FaTimesCircle className="mr-1" />
+                        Cancelled
+                      </span>
+                    ) : 
+                    (
+                    <div className="flex">
+                      <button
+                        onClick={() => handleCancel(parcel._id)}
+                        title="Cancel"
+                        className="text-red-600 btn hover:text-red-800"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={() => handleDeliver(parcel._id)}
+                        title="Deliver"
+                        className="text-green-600 btn hover:text-green-800"
+                      >
+                        Deliver
+                      </button>
+                    </div>
                     )}
                   </td>
                 </tr>

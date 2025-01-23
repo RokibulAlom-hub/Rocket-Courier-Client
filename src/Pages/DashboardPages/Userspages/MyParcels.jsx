@@ -52,7 +52,7 @@ const MyParcels = () => {
   };
   // reveiw for deliveryman
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
     // const rating = parseFloat(data.rating);
     const response = await axiosSecure.post("/reviews", data);
      Sweetalert('Review Done','Successfully reveiw added','success')
@@ -63,7 +63,7 @@ const MyParcels = () => {
   const handledId = (id) => {
     setDmanid(id);
   };
-  console.log(filter);
+  // console.log(filter);
   
   return (
     <div className="p-6 max-w-7xl mx-auto">

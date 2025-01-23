@@ -19,13 +19,11 @@ const MyProfilePage = () => {
 
   const onSubmit = async (data) => {
     try {
-      // console.log(data);
-
       const imageFile = { image: data.image[0] };
       const res = await axiosPublic.post(image_hosting_api, imageFile, {
         headers: { "content-type": "multipart/form-data" },
       });
-
+  
       const updateData = {
         displayName: data.name,
         photoURL: res.data.data.display_url,
@@ -34,21 +32,20 @@ const MyProfilePage = () => {
         name: data.name,
         photoURL: res.data.data.display_url,
       };
-
+  
       await updateUserData(updateData);
-      const response = await axiosPublic.patch(`/users/update?roleId=${roleId}`, { updateApi });
-      // console.log(response.data);
-
-      // console.log("Profile updated successfully:", updateData, updateApi);
+      const response = await axiosPublic.patch(`/update-user?roleId=${roleId}`, {updateApi});
+      console.log(response.data);
+  
       Sweetalert('Updated', "Successfully updated", "success");
       navigate('/dashboard/book-parcels');
     } catch (error) {
-      console.error("Error updating profile:", error.message);
-      Sweetalert('Errored', "uFailed to update profile", "error");
-
-      alert(". Please try again.");
+      console.error("Error updating profile:", error);
+      Sweetalert('Errored', "Failed to update profile", "error");
     }
   };
+  
+  
 
   return (
     <div className="p-6 max-w-xl mx-auto bg-gray-50 shadow-lg rounded-lg font-sans">

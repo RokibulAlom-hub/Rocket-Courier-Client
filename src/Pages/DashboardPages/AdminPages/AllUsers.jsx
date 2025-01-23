@@ -4,9 +4,9 @@ import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 
 const AllUsers = () => {
   const axiosSecure = useAxiossecure();
-  const [users, refetch, isLoading, error] = useAllusers();
+  const [users,laoding, err, refetch,] = useAllusers();
 
-  if (isLoading) {
+  if (laoding) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="text-xl font-semibold text-blue-600">Loading...</div>
@@ -14,7 +14,7 @@ const AllUsers = () => {
     );
   }
 
-  if (error) {
+  if (err) {
     return (
       <div className="text-center text-red-500 text-lg font-medium">
         Error fetching users: {error.message}
