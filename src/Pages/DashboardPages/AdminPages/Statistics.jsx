@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
+import useAxiossecure from "../../../Hooks/useAxiossecure";
 
 const Statistics = () => {
   const [barChartData, setBarChartData] = useState([]);
   const [categories, setCategories] = useState([]);
-
+  const axiosSecure = useAxiossecure()
   useEffect(() => {
  
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:7000/allparcels");
-        const data = await response.json();
+        const response = await axiosSecure.get('/allparcels');
+        const data = response.data
 
         const groupedData = data.reduce((acc, item) => {
           acc[item.bookingDate] = (acc[item.bookingDate] || 0) + 1;

@@ -41,14 +41,14 @@ const MyParcels = () => {
   // handle
   // status cancel
   const handleCancel = (id) => {
-    console.log("this is parcel id for cancel", id);
+    // console.log("this is parcel id for cancel", id);
     const cancelStatus = {
       status: "cancel",
     };
     const response = axiosSecure.patch(`/update-status/${id}`, cancelStatus);
-    console.log(response.data);
+    // console.log(response.data);
     refetch();
-    alert("parcel cancel");
+   Sweetalert('Cancelled','Successfullly Cancel',"success")
   };
   // reveiw for deliveryman
   const onSubmit = async (data) => {
@@ -99,14 +99,30 @@ const MyParcels = () => {
           </thead>
           <tbody>
             {myparcel.map((parcel, index) => (
-              <tr key={parcel._id}>
+              <tr key={parcel._id} className={`${index % 2 === 0 ? 'bg-white' : 'bg-slate-100'} border-black`}
+>
                 <td>{index + 1}</td>
                 <td>{parcel.parcelType}</td>
                 <td>{parcel.deliveryDate}</td>
                 <td>{parcel.App_delivery_date || "TBD"}</td>
                 <td>{parcel.bookingDate}</td>
                 <td>{parcel?.deliverymanId || "Unassigned"}</td>
-                <td>{parcel.status}</td>
+                <td
+  className={`${
+    parcel.status === "delivered"
+      ? "text-red-500"
+      : parcel.status === "cancel"
+      ? "text-red-500"
+      : parcel.status === "On the Way"
+      ? "text-orange-500"
+      : parcel.status === "pending"
+      ? "text-blue-500"
+      : ""
+  }`}
+>
+  {parcel.status}
+</td>
+
                 <td className="flex flex-col justify-center gap-1">
                   {/* Update Button */}
                   <Link

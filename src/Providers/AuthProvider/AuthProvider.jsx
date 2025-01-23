@@ -9,10 +9,12 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../../Firebase/Firebase.init";
+import useAxiospublic from "../../Hooks/useAxiospublic";
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [laoding, setLoading] = useState(true);
+  const axiosPublic = useAxiospublic();
   const googleProvider = new GoogleAuthProvider();
   // user creation function
   const createUserByemail = (email, password, displayName, photoURL) => {
@@ -45,12 +47,27 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
       console.log("observer is watching you", currentuser);
       setUser(currentuser);
+      if (currentuser) {
+        const userInfo = {
+          email: currentuser?.email,
+        };
+        axiosPublic.post("/jwt", userInfo).then((res) => {
+          // console.log(res.data.token);
+
+          if (res.data.token) {
+            localStorage.setItem("authToken", res.data.token);
+          }
+          // fetchProtectedData()
+        });
+      } else {
+        localStorage.removeItem("authToken");
+      }
       setLoading(false);
     });
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [axiosPublic]);
   const authData = {
     createUserByemail,
     userLogin,

@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiospublic from "./useAxiospublic";
+import useAxiossecure from "./useAxiossecure";
 
 const useDeliveryman = () => {
-    const axiosPublic = useAxiospublic();
-
+const axiosSecure = useAxiossecure()
     // Using react-query to fetch all deliverymen
     const {
         data: deliveryMan = [], // Default to an empty array
@@ -13,7 +13,7 @@ const useDeliveryman = () => {
     } = useQuery({
         queryKey: ["allDeliveryMen"],
         queryFn: async () => {
-            const response = await axiosPublic.get("/alldelivery?role=Delivery-Men");
+            const response = await axiosSecure.get("/alldelivery?role=Delivery-Men");
             return response.data;
         },
     });

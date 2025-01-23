@@ -10,11 +10,11 @@ const StatisticsCards = () => {
   const [users] = useAllusers();
 
   useEffect(() => {
-    AOS.init({ duration: 1000 }); // Initialize AOS with a 1-second duration
+    AOS.init({ duration: 1000 }); 
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>; // Show loading indicator while fetching
+    return <div>Loading...</div>; 
   }
 
   // Filter the delivered parcels
