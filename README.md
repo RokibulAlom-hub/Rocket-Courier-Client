@@ -7,7 +7,6 @@ Rocket Courier is a modern and responsive courier management application designe
 
 ---
 
-## **1. Screenshot** 🖼️  
 
 ![Image](https://github.com/user-attachments/assets/6494fc5d-0a50-470c-8ffe-1dda47e549cb)
 
