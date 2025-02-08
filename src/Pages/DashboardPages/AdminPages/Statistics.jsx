@@ -7,20 +7,20 @@ const Statistics = () => {
   const [categories, setCategories] = useState([]);
   const axiosSecure = useAxiossecure()
   useEffect(() => {
- 
+    // data getting and setting 
     const fetchData = async () => {
       try {
         const response = await axiosSecure.get('/allparcels');
         const data = response.data
-
+        // here data is getting through reduce to count the parcel with date
         const groupedData = data.reduce((acc, item) => {
           acc[item.bookingDate] = (acc[item.bookingDate] || 0) + 1;
           return acc;
         }, {});
-
+        // all the dates and their values are settign on variables
         const dates = Object.keys(groupedData);
         const bookings = Object.values(groupedData);
-
+        // now the dates and values are setting on state 
         setCategories(dates);
         setBarChartData([
           {

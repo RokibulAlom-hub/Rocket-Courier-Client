@@ -10,7 +10,7 @@ const AllParcels = () => {
   const [appDate, setAppdate] = useState("");
   const [dMan, setDman] = useState(null);
   const [parcels, isLoading, error, refetch] = useAllparcels();
-
+  // mangae fuction
   const handleManage = async (id) => {
     const updateMange = {
       appDate,
@@ -59,7 +59,10 @@ const AllParcels = () => {
           </thead>
           <tbody>
             {parcels.map((parcel, index) => (
-              <tr key={parcel._id} className={`${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-50'}`}>
+              <tr
+                key={parcel._id}
+                className={`${index % 2 === 0 ? "bg-gray-100" : "bg-gray-50"}`}
+              >
                 <td>{index + 1}</td>
                 <td>{parcel.name}</td>
                 <td>{parcel.phone}</td>
@@ -68,25 +71,38 @@ const AllParcels = () => {
                 <td>{parcel.price} Tk</td>
                 <td>
                   <span
-                   className={`py-1 px-3 rounded-full font-bold ${
-                    parcel.status === "On the Way" ? "bg-blue-500 text-white" :
-                    parcel.status === "cancel" ? "bg-red-500 text-white" :
-                    parcel.status === "delivered" ? "bg-green-500 text-white" :
-                    parcel.status === "pending" ? "bg-yellow-500 text-black" : ""
-                  }`}
+                    className={`py-1 px-3 rounded-full font-bold ${
+                      parcel.status === "On the Way"
+                        ? "bg-blue-500 text-white"
+                        : parcel.status === "cancel"
+                        ? "bg-red-500 text-white"
+                        : parcel.status === "delivered"
+                        ? "bg-green-500 text-white"
+                        : parcel.status === "pending"
+                        ? "bg-yellow-500 text-black"
+                        : ""
+                    }`}
                   >
                     {parcel.status}
                   </span>
                 </td>
                 <td>
-                  <button
-                    className="p-3 rounded-lg text-white bg-violet-600 hover:bg-violet-700 transition duration-300"
-                    onClick={() =>
-                      document.getElementById(`modal_${parcel._id}`).showModal()
-                    }
-                  >
-                    Manage
-                  </button>
+                  {/* status based condition for Manage Button */}
+                  {parcel.status === "cancel" && "delivered" ? (
+                    "Cancelled"
+                  ) : parcel.status === "delivered" ? ("Finished"):
+                   (
+                    <button
+                      className={`p-3 rounded-lg text-white bg-violet-600`}
+                      onClick={() =>
+                        document
+                          .getElementById(`modal_${parcel._id}`)
+                          .showModal()
+                      }
+                    >
+                      Manage
+                    </button>
+                  )}
 
                   {/* Modal */}
                   <dialog id={`modal_${parcel._id}`} className="modal">
@@ -100,7 +116,10 @@ const AllParcels = () => {
                           const selectedMan = deliveryMan.find(
                             (dman) => dman.name === e.target.value
                           );
-                          setDman({ _id: selectedMan._id, name: selectedMan.name });
+                          setDman({
+                            _id: selectedMan._id,
+                            name: selectedMan.name,
+                          });
                         }}
                         className="w-1/2 p-2 border border-indigo-400 rounded-lg mb-4"
                       >

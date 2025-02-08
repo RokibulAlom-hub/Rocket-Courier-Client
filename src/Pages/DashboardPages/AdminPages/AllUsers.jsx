@@ -1,11 +1,12 @@
+import { useState } from "react";
 import useAllusers from "../../../Hooks/useAllusers";
 import useAxiossecure from "../../../Hooks/useAxiossecure";
 import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 import Swal from "sweetalert2";
 const AllUsers = () => {
   const axiosSecure = useAxiossecure();
-  const [users,laoding, err, refetch,] = useAllusers();
-
+  const [users, laoding, err, refetch] = useAllusers();
+  // const [roleChange,setRolechange] = useState('')
   if (laoding) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -22,20 +23,19 @@ const AllUsers = () => {
     );
   }
 
-  const handleRoleChange =  (id, role) => {
+  const handleRoleChange = (id, role) => {
+    console.log(id, role);
+
     Swal.fire({
-      title: "Do you want to channge the role?",
+      title: ` Change the role to ${role}?`,
       showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: "Save",
-      denyButtonText: `Don't save`
+      confirmButtonText: "Change",
+      denyButtonText: `Don't Change`,
     }).then(async (result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        // const response = await axiosSecure.patch(`/users/${id}`, { role });
+        const response = await axiosSecure.patch(`/users/${id}`, { role });
         Sweetalert(`${role} Added`, `You made ${role}`, "success");
-        // Swal.fire("Saved!", "", "success");
-        // refetch();
+        refetch();
         return response.data;
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
@@ -66,9 +66,7 @@ const AllUsers = () => {
             {users.map((user, index) => (
               <tr
                 key={user._id}
-                className={`${
-                  index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"
-                }`}
+                className={`${index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"}`}
               >
                 <td className="py-3 px-4 font-medium">{index + 1}</td>
                 <td className="py-3 px-4">{user.name}</td>
@@ -87,23 +85,16 @@ const AllUsers = () => {
                     {user.role}
                   </span>
                 </td>
-                <td className="py-3 px-4 space-x-2">
-                  {user.role !== "Admin" && (
-                    <button
-                      className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                      onClick={() => handleRoleChange(user._id, "Admin")}
-                    >
-                      Make Admin
-                    </button>
-                  )}
-                  {user.role !== "Delivery-Men" && (
-                    <button
-                      className="px-4 py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600"
-                      onClick={() => handleRoleChange(user._id, "Delivery-Men")}
-                    >
-                      Make Delivery-Men
-                    </button>
-                  )}
+                {/* trying input field for better ui  */}
+                <td>
+                  <select
+                    onChange={(e) => handleRoleChange(user._id, e.target.value)}
+                    className="p-2 bg-slate-100"
+                  >
+                    <option value="">Change the role </option>
+                    <option value="Admin">Admin</option>
+                    <option value="Delivery-Men">Deliveryman</option>
+                  </select>
                 </td>
               </tr>
             ))}
@@ -115,3 +106,24 @@ const AllUsers = () => {
 };
 
 export default AllUsers;
+
+{
+  /* <td className="py-3 px-4 space-x-2">
+{user.role !== "Admin" && (
+  <button
+    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+    onClick={() => handleRoleChange(user._id, "Admin")}
+  >
+    Make Admin
+  </button>
+)}
+{user.role !== "Delivery-Men" && (
+  <button
+    className="px-4 py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600"
+    onClick={() => handleRoleChange(user._id, "Delivery-Men")}
+  >
+    Make Delivery-Men
+  </button>
+)}
+</td> */
+}
