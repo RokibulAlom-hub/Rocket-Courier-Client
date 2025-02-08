@@ -29,6 +29,7 @@ const Dashboard = () => {
             Dashboard
           </div>
           <ul className="menu p-4 space-y-3">
+            {/* if role is admin this dashboard links will be shown */}
             {role === "Admin" && (
               <>
                 <li className="hover:bg-indigo-600 rounded-md">
@@ -65,7 +66,7 @@ const Dashboard = () => {
                 </li>
               </>
             )}
-
+            {/* if role is user this dashboard links will be shown */}
             {role === "user" && (
               <>
                 <li className="hover:bg-indigo-600 rounded-md">
@@ -94,7 +95,7 @@ const Dashboard = () => {
                 </li>
               </>
             )}
-
+            {/* if role is delivery man this dashboard links will be shown */}
             {role === "Delivery-Men" && (
               <>
                 <li className="hover:bg-indigo-600 rounded-md">

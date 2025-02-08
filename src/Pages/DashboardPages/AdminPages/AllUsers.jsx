@@ -1,7 +1,7 @@
 import useAllusers from "../../../Hooks/useAllusers";
 import useAxiossecure from "../../../Hooks/useAxiossecure";
 import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
-
+import Swal from "sweetalert2";
 const AllUsers = () => {
   const axiosSecure = useAxiossecure();
   const [users,laoding, err, refetch,] = useAllusers();
@@ -22,11 +22,25 @@ const AllUsers = () => {
     );
   }
 
-  const handleRoleChange = async (id, role) => {
-    const response = await axiosSecure.patch(`/users/${id}`, { role });
-    Sweetalert(`${role} Added`, `You made ${role}`, "success");
-    refetch();
-    return response.data;
+  const handleRoleChange =  (id, role) => {
+    Swal.fire({
+      title: "Do you want to channge the role?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Save",
+      denyButtonText: `Don't save`
+    }).then(async (result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        // const response = await axiosSecure.patch(`/users/${id}`, { role });
+        Sweetalert(`${role} Added`, `You made ${role}`, "success");
+        // Swal.fire("Saved!", "", "success");
+        // refetch();
+        return response.data;
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
   };
 
   return (
@@ -47,6 +61,7 @@ const AllUsers = () => {
               <th className="py-3 px-4">Actions</th>
             </tr>
           </thead>
+          {/* user data coming from database  */}
           <tbody>
             {users.map((user, index) => (
               <tr
@@ -61,6 +76,7 @@ const AllUsers = () => {
                 <td className="py-3 px-4">
                   <span
                     className={`px-3 py-1 rounded-full font-semibold ${
+                      // conditon for user bg and text color
                       user.role === "Admin"
                         ? "bg-green-100 text-green-700"
                         : user.role === "Delivery-Men"
