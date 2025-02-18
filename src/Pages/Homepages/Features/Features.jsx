@@ -27,16 +27,16 @@ const Features = () => {
   ];
 
   return (
-    <div className="py-12 bg-gradient-to-r from-blue-500 via-green-400 to-yellow-500">
+    <div className="">
       <div className="max-w-6xl mx-auto px-4 text-center">
         {/* Section Heading */}
         <h2
-          className="text-3xl font-bold mb-6 text-white"
+          className="text-3xl font-bold mb-6 "
           data-aos="fade-down"
         >
           Our Features
         </h2>
-        <p className="text-gray-100 mb-10" data-aos="fade-up">
+        <p className="mb-10" data-aos="fade-up">
           Discover the key features of our delivery system that set us apart.
         </p>
 

@@ -12,11 +12,11 @@ const DeliveryManCard = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
       {limitDeliveryMan.map((man, index) => (
         <div
           key={man._id}
-          className="bg-white rounded-lg shadow-lg overflow-hidden m-4 transition-transform transform hover:scale-105 hover:shadow-xl"
+          className="bg-white rounded-lg shadow-lg overflow-hidden  transition-transform transform hover:scale-105 hover:shadow-xl"
           data-aos={index % 2 === 0 ? "fade-right" : "fade-left"} // Alternating animations
         >
           <div className="relative">

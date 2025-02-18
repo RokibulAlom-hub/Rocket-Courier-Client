@@ -128,7 +128,7 @@ const Dashboard = () => {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 bg-gray-100">
+        <main className="flex-1">
           <div className="p-4">
             <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
             {/* Nested Routes */}
@@ -136,7 +136,6 @@ const Dashboard = () => {
           </div>
         </main>
       </div>
-      <Footer></Footer>
     </>
   );
 };

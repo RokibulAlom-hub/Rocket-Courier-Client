@@ -4,7 +4,7 @@ const Banner = () => {
   
   return (
     <div
-      className="relative min-h-screen bg-cover bg-center flex items-center justify-center my-7"
+      className="relative min-h-screen bg-cover bg-center flex items-center justify-center "
       style={{
         backgroundImage: `url(${bannerImg})`, // Replace with your image URL
       }}

@@ -9,9 +9,7 @@ const Home = () => {
         <div>
            <Banner></Banner>
            <Features></Features>
-           <div><h2 className='font-bold text-3xl text-white text-center'>Statistics of Our App</h2></div>
            <StatisticsCards></StatisticsCards>
-           <div><h2 className='font-bold text-3xl text-white text-center'>Top 3 Delivery-Man</h2></div>
            <DeliveryManCard></DeliveryManCard>
         </div>
     );
