@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "image": "https://i.ibb.co.com/K1KRtNK/food-delivery-man-driving-food-box.jpg",
+        "heading": "Fast & Reliable Courier Services",
+        "description": "Experience lightning-fast deliveries with Rocket Courier, ensuring your packages reach their destination on time, every time."
+    },
+    {
+        "id": 2,
+        "image": "  https://i.ibb.co.com/6cDrHr79/super-straho-DZe1j-K6pk5c-unsplash.jpg",
+        "heading": "Worldwide Shipping Solutions",
+        "description": "With Rocket Courier, ship your parcels across the globe effortlessly and track them in real-time with our advanced system."
+    },
+    {
+        "id": 3,
+        "image": "https://i.ibb.co.com/gbLZqc2B/lucian-alexe-af-Du-Guxjj-M-unsplash.jpg",
+        "heading": "Safe & Secure Deliveries",
+        "description": "Your packages are handled with utmost care and security, guaranteeing peace of mind from pickup to delivery."
+    }
+]

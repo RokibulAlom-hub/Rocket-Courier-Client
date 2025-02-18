@@ -1,36 +1,39 @@
-import React from "react";
-import bannerImg from "../../../assets/banner.jpg"
+import { Swiper, SwiperSlide } from "swiper/react";
+import banfile from "../../../../public/banner.json";
+// Import Swiper styles
+import "swiper/css";
 const Banner = () => {
-  
-  return (
-    <div
-      className="relative min-h-screen bg-cover bg-center flex items-center justify-center "
-      style={{
-        backgroundImage: `url(${bannerImg})`, // Replace with your image URL
-      }}
-    >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+  console.log(banfile);
 
-      {/* Content */}
-      <div className="relative text-center text-white px-4">
-        {/* Heading */}
-        <h1 className="text-4xl md:text-6xl font-bold mb-6">
-          Find Your Dream Destination
-        </h1>
-        {/* Search Bar */}
-        <div className="flex items-center max-w-md mx-auto bg-white rounded-full overflow-hidden shadow-lg">
-          <input
-            type="text"
-            placeholder="Search here..."
-            className="flex-grow px-4 py-2 text-gray-800 outline-none"
-          />
-          <button className="bg-blue-500 text-white px-6 py-2 font-semibold hover:bg-blue-600">
-            Search
+  return (
+    <Swiper
+      spaceBetween={50}
+      slidesPerView={1}
+      onSlideChange={() => console.log("slide change")}
+      autoplay={{ delay: 2000 }}
+    >
+      {banfile.map((ban, key) => (
+        <SwiperSlide
+          key={key}
+          className="relative bg-cover bg-no-repeat bg-center "
+          style={{
+            backgroundImage: `url(${ban.image})`,
+            height: "90vh",
+          }}
+        >
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black bg-opacity-70"></div>
+          <div className="relative text-backup flex flex-col items-center justify-center  h-full" >
+            <h1 className="text-6xl font-bold mb-3">{ban.heading}</h1>
+            <p className="font-semibold w-2/4 text-center mb-2">{ban.description}</p>
+            <button className="bg-accent p-2 rounded-md hover:bg-yellow-900">
+            Book A Parcel
           </button>
-        </div>
-      </div>
-    </div>
+          </div>
+         
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 };
 
