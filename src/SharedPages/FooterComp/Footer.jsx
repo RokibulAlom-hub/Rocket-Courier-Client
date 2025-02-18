@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-accent text-white py-8">
-      <div className="container mx-auto px-4">
+    <footer className="bg-accent text-white py-8 mt-10">
+      <div className="container mx-auto ">
         <div className="flex flex-wrap justify-between items-center">
           <div className="w-full md:w-1/4 text-center md:text-left mb-4 md:mb-0">
             <h2 className="text-2xl font-bold mb-2">Rocket-Courier</h2>
