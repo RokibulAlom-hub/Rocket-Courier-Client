@@ -30,7 +30,7 @@ const Navbar = () => {
       <nav className="py-4 flex relative  justify-between items-center w-11/12 mx-auto">
         {/* Logo and Website Name and menu bar for responsive  */}
         <div className="flex items-center relative">
-          <button onClick={menuDropdown} className="p-2 md:hidden">
+          <button onClick={menuDropdown} className=" md:hidden">
             <AiOutlineMenu />
           </button>
           {ismenuDropdownOpen && (
@@ -58,7 +58,7 @@ const Navbar = () => {
               </button>
             </div>
           )}
-          <Link to="/" className="flex items-center gap-1 ml-4">
+          <Link to="/" className="flex items-center gap-1">
             <img src={logo} alt="Logo" className="h-8 w-8" />
             <span className="text-lg uppercase font-bold">Rocket-Courier</span>
           </Link>

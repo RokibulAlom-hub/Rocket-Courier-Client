@@ -1,17 +1,14 @@
-import React, { useEffect } from "react";
-import CountUp from "react-countup";
+
 import useAllparcels from "../../../Hooks/useAllparcels";
 import useAllusers from "../../../Hooks/useAllusers";
-import "aos/dist/aos.css";
-import AOS from "aos";
+import StatisCard from "./StatisCard";
+
 
 const StatisticsCards = () => {
   const [parcels, isLoading, error] = useAllparcels();
   const [users,laoding,err] = useAllusers();
 
-  useEffect(() => {
-    AOS.init({ duration: 1000 }); 
-  }, []);
+ 
 
   if (isLoading || laoding) {
     return <div>🍭 Loading sweet content... Hang tight! 🍭 </div>; 
@@ -27,45 +24,12 @@ const StatisticsCards = () => {
   }
 
   return (
-    <div className="flex flex-wrap justify-around gap-5">
+    <div className="flex ">
       {/* Total Parcels Booked */}
-      <div
-        className="bg-text text-white rounded-lg shadow-lg p-8 text-center w-72"
-        data-aos="fade-up"
-      >
-        <h3 className="mb-4 text-2xl font-semibold">Total Parcels Booked</h3>
-        <CountUp
-          className="text-4xl font-bold"
-          end={parcels.length}
-          duration={15}
-        />
-      </div>
-
-      {/* Total Parcels Delivered */}
-      <div
-        className="bg-text text-white rounded-lg shadow-lg p-8 text-center w-72"
-        data-aos="fade-up"
-      >
-        <h3 className="mb-4 text-2xl font-semibold">Total Parcels Delivered</h3>
-        <CountUp
-          className="text-4xl font-bold"
-          end={deliverdParcels.length}
-          duration={15}
-        />
-      </div>
-
-      {/* Total Users */}
-      <div
-        className="bg-text text-white rounded-lg shadow-lg p-8 text-center w-72"
-        data-aos="fade-up"
-      >
-        <h3 className="mb-4 text-2xl font-semibold">Total App Users</h3>
-        <CountUp
-          className="text-4xl font-bold"
-          end={users.length}
-          duration={15}
-        />
-      </div>
+      <StatisCard headtext="Total Parcels Booked" numberHead={parcels.length}></StatisCard>
+      <StatisCard headtext="Total Parcels Delivered" numberHead={deliverdParcels.length}></StatisCard>
+      <StatisCard headtext="Total App Users" numberHead={users.length}></StatisCard>
+      <StatisCard headtext="Years of Experience" numberHead="5"></StatisCard>
     </div>
   );
 };

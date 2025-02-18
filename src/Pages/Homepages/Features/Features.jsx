@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { FaShieldAlt, FaShippingFast, FaThumbsUp } from "react-icons/fa";
+import Heading from "../../Sharedcomponensts/Heading";
 
 const Features = () => {
   useEffect(() => {
@@ -12,34 +13,28 @@ const Features = () => {
     {
       icon: <FaShieldAlt size={40} className="text-blue-500" />,
       title: "Parcel Safety",
-      description: "Your parcels are handled with the utmost care to ensure safe delivery every time.",
+      description:
+        "Your parcels are handled with the utmost care to ensure safe delivery every time.",
     },
     {
       icon: <FaShippingFast size={40} className="text-green-500" />,
       title: "Super Fast Delivery",
-      description: "Experience blazing fast delivery speeds to get your parcels on time.",
+      description:
+        "Experience blazing fast delivery speeds to get your parcels on time.",
     },
     {
       icon: <FaThumbsUp size={40} className="text-yellow-500" />,
       title: "Trusted Service",
-      description: "Join thousands of satisfied customers who trust us for their delivery needs.",
+      description:
+        "Join thousands of satisfied customers who trust us for their delivery needs.",
     },
   ];
 
   return (
-    <div className="">
-      <div className="max-w-6xl mx-auto px-4 text-center">
+    <>
+      <div className=" text-center">
         {/* Section Heading */}
-        <h2
-          className="text-3xl font-bold mb-6 "
-          data-aos="fade-down"
-        >
-          Our Features
-        </h2>
-        <p className="mb-10" data-aos="fade-up">
-          Discover the key features of our delivery system that set us apart.
-        </p>
-
+         <Heading headtext="key features of our delivery system"></Heading>
         {/* Feature Cards */}
         <div className="grid md:grid-cols-3 gap-8">
           {features.map((feature, index) => (
@@ -60,7 +55,7 @@ const Features = () => {
           ))}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

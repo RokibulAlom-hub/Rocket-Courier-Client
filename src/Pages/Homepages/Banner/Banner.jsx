@@ -15,7 +15,7 @@ const Banner = () => {
       {banfile.map((ban, key) => (
         <SwiperSlide
           key={key}
-          className="relative bg-cover bg-no-repeat bg-center "
+          className="relative bg-cover bg-no-repeat bg-center mb-9"
           style={{
             backgroundImage: `url(${ban.image})`,
             height: "90vh",
