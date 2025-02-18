@@ -45,7 +45,7 @@ const AuthProvider = ({ children }) => {
   // observer settings
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
-      console.log("observer is watching you", currentuser);
+      // console.log("observer is watching you", currentuser);
       setUser(currentuser);
       if (currentuser) {
         const userInfo = {

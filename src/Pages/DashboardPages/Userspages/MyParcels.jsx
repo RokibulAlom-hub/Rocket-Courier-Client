@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
+import Swal from "sweetalert2";
 
 const MyParcels = () => {
   const [dmanId, setDmanid] = useState("");
@@ -17,7 +18,7 @@ const MyParcels = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm();
   // get the my parcel
   const {
@@ -26,9 +27,11 @@ const MyParcels = () => {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["userParcel",filter],
+    queryKey: ["userParcel", filter],
     queryFn: async () => {
-      const response = await axiosSecure.get(`/parcels?email=${user?.email}&filter=${filter}`);
+      const response = await axiosSecure.get(
+        `/parcels?email=${user?.email}&filter=${filter}`
+      );
       return response.data;
     },
   });
@@ -45,18 +48,29 @@ const MyParcels = () => {
     const cancelStatus = {
       status: "cancel",
     };
-    const response = axiosSecure.patch(`/update-status/${id}`, cancelStatus);
+    Swal.fire({
+      title: ` Want to cancel ?`,
+      showDenyButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: `No`,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = axiosSecure.patch(`/update-status/${id}`, cancelStatus);
+        Sweetalert("Cancelled", "Successfullly Cancel", "success");
+        refetch();
+        return response.data;
+      }
+    });
+
     // console.log(response.data);
-    refetch();
-   Sweetalert('Cancelled','Successfullly Cancel',"success")
   };
   // reveiw for deliveryman
   const onSubmit = async (data) => {
     // console.log(data);
     // const rating = parseFloat(data.rating);
     const response = await axiosSecure.post("/reviews", data);
-     Sweetalert('Review Done','Successfully reveiw added','success')
-     reset()
+    Sweetalert("Review Done", "Successfully reveiw added", "success");
+    reset();
     return response.data;
   };
   // get the delivery man id
@@ -64,7 +78,7 @@ const MyParcels = () => {
     setDmanid(id);
   };
   // console.log(filter);
-  
+
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">My Parcels</h1>
@@ -99,8 +113,12 @@ const MyParcels = () => {
           </thead>
           <tbody>
             {myparcel.map((parcel, index) => (
-              <tr key={parcel._id} className={`${index % 2 === 0 ? 'bg-white' : 'bg-slate-100'} border-black`}
->
+              <tr
+                key={parcel._id}
+                className={`${
+                  index % 2 === 0 ? "bg-white" : "bg-slate-100"
+                } border-black`}
+              >
                 <td>{index + 1}</td>
                 <td>{parcel.parcelType}</td>
                 <td>{parcel.deliveryDate}</td>
@@ -108,20 +126,20 @@ const MyParcels = () => {
                 <td>{parcel.bookingDate}</td>
                 <td>{parcel?.deliverymanId || "Unassigned"}</td>
                 <td
-  className={`${
-    parcel.status === "delivered"
-      ? "text-red-500"
-      : parcel.status === "cancel"
-      ? "text-red-500"
-      : parcel.status === "On the Way"
-      ? "text-orange-500"
-      : parcel.status === "pending"
-      ? "text-blue-500"
-      : ""
-  }`}
->
-  {parcel.status}
-</td>
+                  className={`${
+                    parcel.status === "delivered"
+                      ? "text-red-500"
+                      : parcel.status === "cancel"
+                      ? "text-red-500"
+                      : parcel.status === "On the Way"
+                      ? "text-orange-500"
+                      : parcel.status === "pending"
+                      ? "text-blue-500"
+                      : ""
+                  }`}
+                >
+                  {parcel.status}
+                </td>
 
                 <td className="flex flex-col justify-center gap-1">
                   {/* Update Button */}
@@ -213,7 +231,7 @@ const MyParcels = () => {
                     </label>
                     <input
                       type="number"
-                      {...register ("rating", {
+                      {...register("rating", {
                         required: true,
                         min: 1,
                         max: 5,

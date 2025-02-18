@@ -6,15 +6,16 @@ import { Sweetalert } from "../../Hooks/UseSweetalerts/Sweetalert";
 import logo from '../../assets/icon.svg'
 const Navbar = () => {
   const { user, userLogout } = useAuth();
-  // console.log(user);
-  
+  // destructuring user object
+  const userData = {user}
+  const dUser = userData.user
+  // console.log(dUser);
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const handleLogout = () => {
     userLogout().then((res) => {
       // console.log(res.user);
-       Sweetalert('Log Out','Successfully Log Out','success')
       navigate("/login");
     });
   };
@@ -42,7 +43,7 @@ const Navbar = () => {
         {user ? (
           <div className="relative">
             <img
-              src={user.photoURL}
+              src={dUser.photoURL}
               alt="Profile"
               className="h-10 w-10 rounded-full cursor-pointer"
               onClick={toggleDropdown}
@@ -50,7 +51,7 @@ const Navbar = () => {
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 z-20 w-48 bg-white text-black rounded-lg shadow-lg">
                 <div className="px-4 py-2">
-                  <p className="font-bold">{user.displayName}</p>
+                  <p className="font-bold">{dUser.displayName}</p>
                 </div>
                 <hr />
                 <Link
