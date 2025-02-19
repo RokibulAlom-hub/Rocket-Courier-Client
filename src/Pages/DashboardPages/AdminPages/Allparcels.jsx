@@ -12,17 +12,14 @@ const AllParcels = () => {
   const [appDate, setAppdate] = useState("");
   const [dMan, setDman] = useState(null);
   const [parcels, isLoading, error, refetch] = useAllparcels();
-  // mangae fuction
+
   const handleManage = async (id) => {
     const updateMange = {
       appDate,
       dmanId: dMan._id,
       status: "On the Way",
     };
-    const response = await axiosSecure.patch(
-      `/manage-parcel/${id}`,
-      updateMange
-    );
+    const response = await axiosSecure.patch(`/manage-parcel/${id}`, updateMange);
     refetch();
     const modal = document.getElementById(`modal_${id}`);
     if (modal) {
@@ -40,18 +37,19 @@ const AllParcels = () => {
   }
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-    <Heading headtext="allparcel"></Heading>
+    <div className="">
+      <Heading headtext="allparcel"></Heading>
 
+      {/* Wrap the table in a div with overflow-x-auto for horizontal scrolling */}
       <div className="overflow-x-auto text-black rounded-lg shadow-md">
         <table className="table w-full text-gray-700">
-          <thead className=" ">
+          <thead className="bg-gray-200">
             <tr>
               <th>#</th>
-              <th>User's Name</th>
-              <th>User's Phone</th>
+              <th className="hidden md:table-cell">User's Name</th>
+              <th className="hidden md:table-cell">User's Phone</th>
               <th>Booking Date</th>
-              <th>Requested Delivery Date</th>
+              <th className="hidden md:table-cell">Requested Delivery Date</th>
               <th>Cost</th>
               <th>Status</th>
               <th>Actions</th>
@@ -64,14 +62,14 @@ const AllParcels = () => {
                 className={`${index % 2 === 0 ? "bg-gray-100" : "bg-gray-50"}`}
               >
                 <td>{index + 1}</td>
-                <td>{parcel.name}</td>
-                <td>{parcel.phone}</td>
+                <td className="hidden md:table-cell">{parcel.name}</td>
+                <td className="hidden md:table-cell">{parcel.phone}</td>
                 <td>{parcel.bookingDate}</td>
-                <td>{parcel.deliveryDate}</td>
+                <td className="hidden md:table-cell">{parcel.deliveryDate}</td>
                 <td>{parcel.price} Tk</td>
                 <td>
                   <span
-                    className={`py-1 px-3 rounded-full font-bold ${
+                    className={`py-1 px-2 rounded-full font-bold ${
                       parcel.status === "On the Way"
                         ? "bg-blue-500 text-white"
                         : parcel.status === "cancel"
@@ -87,17 +85,15 @@ const AllParcels = () => {
                   </span>
                 </td>
                 <td>
-                  {/* status based condition for Manage Button */}
                   {parcel.status === "cancel" && "delivered" ? (
                     "Cancelled"
-                  ) : parcel.status === "delivered" ? ("Finished"):
-                   (
+                  ) : parcel.status === "delivered" ? (
+                    "Finished"
+                  ) : (
                     <button
                       className={`p-3 rounded-lg text-white bg-violet-600`}
                       onClick={() =>
-                        document
-                          .getElementById(`modal_${parcel._id}`)
-                          .showModal()
+                        document.getElementById(`modal_${parcel._id}`).showModal()
                       }
                     >
                       Manage

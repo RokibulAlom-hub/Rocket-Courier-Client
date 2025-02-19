@@ -81,7 +81,7 @@ const Navbar = () => {
             <div className="relative">
               <img
                 src={dUser.photoURL}
-                alt={dUser.displayName}
+                alt="user image"
                 className="h-10 w-10 rounded-full cursor-pointer"
                 onClick={toggleDropdown}
               />

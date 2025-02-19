@@ -5,27 +5,26 @@ import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 import Swal from "sweetalert2";
 import Heading from "../../Sharedcomponensts/Heading";
 import Loading from "../../Sharedcomponensts/Loading";
+
 const AllUsers = () => {
   const axiosSecure = useAxiossecure();
-  const [users, laoding, err, refetch] = useAllusers();
-  // const [roleChange,setRolechange] = useState('')
-  if (laoding) {
+  const [users, loading, err, refetch] = useAllusers();
+
+  if (loading) {
     return <Loading></Loading>;
   }
 
   if (err) {
     return (
       <div className="text-center text-red-500 text-lg font-medium">
-        Error fetching users: {error.message}
+        Error fetching users: {err.message}
       </div>
     );
   }
 
   const handleRoleChange = (id, role) => {
-    console.log(id, role);
-
     Swal.fire({
-      title: ` Change the role to ${role}?`,
+      title: `Change the role to ${role}?`,
       showDenyButton: true,
       confirmButtonText: "Change",
       denyButtonText: `Don't Change`,
@@ -42,35 +41,33 @@ const AllUsers = () => {
   };
 
   return (
-    <div className=" ">
-      <Heading headtext="  All Registered Users"></Heading>
+    <div className="p-4">
+      <Heading headtext="All Registered Users"></Heading>
 
       {/* User Table */}
       <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
-        <table className="table w-full text-center border-collapse border border-gray-300">
-          <thead className="">
+        <table className="w-full text-center border-collapse border border-gray-300">
+          <thead className="bg-gray-200">
             <tr>
-              <th className="py-3 px-4">#</th>
-              <th className="py-3 px-4">Name</th>
-              <th className="py-3 px-4">Phone Number</th>
-              <th className="py-3 px-4">User Status</th>
-              <th className="py-3 px-4">Actions</th>
+              <th className="py-3 ">Name</th>
+              <th className="py-3 hidden md:table-cell">Phone Number</th>
+              <th className="py-3">User Status</th>
+              <th className="py-3">Actions</th>
             </tr>
           </thead>
-          {/* user data coming from database  */}
           <tbody>
             {users.map((user, index) => (
               <tr
                 key={user._id}
-                className={`${index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"}`}
+                className={`${index % 2 === 0 ? "bg-gray-100" : "bg-gray-50"}`}
               >
-                <td className="py-3 px-4 font-medium">{index + 1}</td>
-                <td className="py-3 px-4">{user.name}</td>
-                <td className="py-3 px-4">{user.phoneNumber || "N/A"}</td>
-                <td className="py-3 px-4">
+                <td className="py-3 ">{user.name}</td>
+                <td className="py-3 hidden md:table-cell">
+                  {user.phoneNumber || "N/A"}
+                </td>
+                <td className="py-3">
                   <span
                     className={`px-3 py-1 rounded-full font-semibold ${
-                      // conditon for user bg and text color
                       user.role === "Admin"
                         ? "bg-green-100 text-green-700"
                         : user.role === "Delivery-Men"
@@ -81,13 +78,12 @@ const AllUsers = () => {
                     {user.role}
                   </span>
                 </td>
-                {/* trying input field for better ui  */}
-                <td>
+                <td className="py-3">
                   <select
                     onChange={(e) => handleRoleChange(user._id, e.target.value)}
-                    className="p-2 bg-slate-100"
+                    className="p-2 bg-slate-100 rounded-lg"
                   >
-                    <option value="">Change the role </option>
+                    <option value="">Change Role</option>
                     <option value="Admin">Admin</option>
                     <option value="Delivery-Men">Deliveryman</option>
                   </select>
@@ -102,24 +98,3 @@ const AllUsers = () => {
 };
 
 export default AllUsers;
-
-{
-  /* <td className="py-3 px-4 space-x-2">
-{user.role !== "Admin" && (
-  <button
-    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-    onClick={() => handleRoleChange(user._id, "Admin")}
-  >
-    Make Admin
-  </button>
-)}
-{user.role !== "Delivery-Men" && (
-  <button
-    className="px-4 py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600"
-    onClick={() => handleRoleChange(user._id, "Delivery-Men")}
-  >
-    Make Delivery-Men
-  </button>
-)}
-</td> */
-}
