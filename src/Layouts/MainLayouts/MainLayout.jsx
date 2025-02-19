@@ -7,7 +7,7 @@ const MainLayout = () => {
         <div className="bg-bgcolor text-text">
             <Navbar></Navbar>
             <Outlet></Outlet>
-            <Footer></Footer>
+            {/* <Footer></Footer> */}
         </div>
     );
 };

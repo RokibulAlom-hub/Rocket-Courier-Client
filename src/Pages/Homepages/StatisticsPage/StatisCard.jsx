@@ -7,7 +7,7 @@ const StatisCard = ({headtext,numberHead}) => {
   }, []);
   return (
     <div
-      className="bg-accent text-white border shadow-lg p-8 text-center w-72"
+      className="bg-accent text-white border shadow-lg p-8 text-center "
       data-aos="fade-up"
     >
       <CountUp

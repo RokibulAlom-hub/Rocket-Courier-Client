@@ -4,10 +4,11 @@ import Features from "./Features/Features";
 import StatisticsCards from "./StatisticsPage/StatisticsCards";
 import TopdeliveryMan from "./TopDeliveryMan/TopdeliveryMan";
 import FAQ from "./Faq/Faq";
+import Feedback from "./Feedback/Feedback";
 
 const Home = () => {
   return (
-    <div>
+    <>
       <Banner></Banner>
       <div className="space-y-20 w-11/12 mx-auto">
         <Features></Features>
@@ -15,7 +16,8 @@ const Home = () => {
         <TopdeliveryMan></TopdeliveryMan>
         <FAQ></FAQ>
       </div>
-    </div>
+      <Feedback></Feedback>
+    </>
   );
 };
 

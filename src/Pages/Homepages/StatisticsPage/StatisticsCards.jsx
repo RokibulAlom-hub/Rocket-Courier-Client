@@ -24,7 +24,7 @@ const StatisticsCards = () => {
   }
 
   return (
-    <div className="flex ">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:gird-cols-4">
       {/* Total Parcels Booked */}
       <StatisCard headtext="Total Parcels Booked" numberHead={parcels.length}></StatisCard>
       <StatisCard headtext="Total Parcels Delivered" numberHead={deliverdParcels.length}></StatisCard>
