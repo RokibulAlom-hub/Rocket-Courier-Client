@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import useRoleUser from "../../../Hooks/useRoleusers";
 import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 import { FaUser, FaEnvelope, FaFileImage, FaEdit } from "react-icons/fa";
+import Heading from "../../Sharedcomponensts/Heading";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -49,9 +50,7 @@ const MyProfilePage = () => {
 
   return (
     <div className="p-6 max-w-xl mx-auto bg-gray-50 shadow-lg rounded-lg font-sans">
-      <h1 className="text-3xl font-bold mb-6 text-purple-700 text-center">
-        My Profile
-      </h1>
+      <Heading headtext="PRofile"></Heading>
       <h2 className="text-xl font-semibold mb-4 text-gray-700 text-center flex items-center justify-center">
         <FaUser className="mr-2" />
         {user.displayName}
@@ -98,7 +97,7 @@ const MyProfilePage = () => {
 
         <button
           type="submit"
-          className="w-full py-2 px-4 bg-purple-700 text-white rounded shadow hover:bg-purple-600 transition duration-300"
+          className="w-full py-2  bg-accent text-white transition duration-300"
         >
           Update Profile
         </button>

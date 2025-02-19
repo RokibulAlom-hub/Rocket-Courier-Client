@@ -26,6 +26,8 @@ const Dashboard = () => {
           <div className="p-4 text-center text-4xl font-semibold">
             Dashboard
           </div>
+          <div className="divider"></div>
+
           <ul className="menu text-bgcolor font-semibold p-4 space-y-3">
             {/* if role is admin this dashboard links will be shown */}
             {role === "Admin" && (

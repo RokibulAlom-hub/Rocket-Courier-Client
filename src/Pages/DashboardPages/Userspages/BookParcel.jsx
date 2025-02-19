@@ -5,6 +5,7 @@ import useAxiospublic from "../../../Hooks/useAxiospublic";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
+import Heading from "../../Sharedcomponensts/Heading";
 
 const BookParcel = () => {
   const axiosPublic = useAxiospublic();
@@ -45,7 +46,7 @@ const BookParcel = () => {
 
   return (
     <div className="p-6 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Book a Parcel</h1>
+      <Heading headtext="Book A parcel"></Heading>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <label className="block font-medium mb-1">Name</label>

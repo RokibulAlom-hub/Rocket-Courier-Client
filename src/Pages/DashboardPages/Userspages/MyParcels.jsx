@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import useAxiossecure from "../../../Hooks/useAxiossecure";
 import useAuth from "../../../Hooks/useAuth";
@@ -10,18 +10,20 @@ import Swal from "sweetalert2";
 import Loading from "../../Sharedcomponensts/Loading";
 
 const MyParcels = () => {
-  const [dmanId, setDmanid] = useState("");
   const { user } = useAuth();
   const axiosSecure = useAxiossecure();
   const [filter, setFilter] = useState("");
+  const [dmanId, setDmanid] = useState("");
   const formattedDate = format(new Date(), "dd/MM/yyyy");
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
     reset,
+    formState: { errors },
   } = useForm();
-  // get the my parcel
+
+  // Fetch user parcels
   const {
     data: myparcel,
     isLoading,
@@ -36,60 +38,43 @@ const MyParcels = () => {
       return response.data;
     },
   });
-  if (isLoading) {
-    return <Loading></Loading>
-  }
-  if (error) {
-    return <div>Error fetching parcels: {error.message}</div>;
-  }
-  // handle
-  // status cancel
+
+  if (isLoading) return <Loading />;
+  if (error) return <div>Error fetching parcels: {error.message}</div>;
+
+  // Handle parcel cancellation
   const handleCancel = (id) => {
-    // console.log("this is parcel id for cancel", id);
-    const cancelStatus = {
-      status: "cancel",
-    };
     Swal.fire({
-      title: ` Want to cancel ?`,
+      title: "Want to cancel?",
       showDenyButton: true,
       confirmButtonText: "Yes",
-      denyButtonText: `No`,
+      denyButtonText: "No",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const response = axiosSecure.patch(`/update-status/${id}`, cancelStatus);
-        Sweetalert("Cancelled", "Successfullly Cancel", "success");
+        await axiosSecure.patch(`/update-status/${id}`, { status: "cancel" });
+        Sweetalert("Cancelled", "Successfully Canceled", "success");
         refetch();
-        return response.data;
       }
     });
+  };
 
-    // console.log(response.data);
-  };
-  // reveiw for deliveryman
+  // Handle review submission
   const onSubmit = async (data) => {
-    // console.log(data);
-    // const rating = parseFloat(data.rating);
-    const response = await axiosSecure.post("/reviews", data);
-    Sweetalert("Review Done", "Successfully reveiw added", "success");
+    await axiosSecure.post("/reviews", data);
+    Sweetalert("Review Done", "Successfully added review", "success");
     reset();
-    return response.data;
   };
-  // get the delivery man id
-  const handledId = (id) => {
-    setDmanid(id);
-  };
-  // console.log(filter);
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="p-4 max-w-7xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">My Parcels</h1>
-      <div>
+
+      {/* Filter dropdown */}
+      <div className="mb-4">
         <select
-          name="status"
-          id="status"
-          className="border font-bold p-2 border-red-300 rounded-lg"
-          onChange={(e) => setFilter(e.target.value)}
           value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className="border p-2 rounded-lg"
         >
           <option value="">Filter By Status</option>
           <option value="delivered">Delivered</option>
@@ -98,58 +83,59 @@ const MyParcels = () => {
           <option value="cancel">Cancel</option>
         </select>
       </div>
+
+      {/* Responsive Table */}
       <div className="overflow-x-auto">
-        <table className="table w-full">
-          <thead>
+        <table className="w-full text-sm md:text-base">
+          <thead className="bg-gray-200">
             <tr>
-              <th>#</th>
-              <th>Parcel Type</th>
-              <th>Requested Delivery Date</th>
-              <th>Approx. Delivery Date</th>
-              <th>Booking Date</th>
-              <th>Delivery Man ID</th>
-              <th>Status</th>
-              <th>Actions</th>
+              <th className="p-2">#</th>
+              <th className="p-2">Parcel Type</th>
+              <th className="p-2 hidden md:table-cell">Requested Delivery Date</th>
+              <th className="p-2 hidden md:table-cell">Approx. Delivery Date</th>
+              <th className="p-2">Booking Date</th>
+              <th className="p-2 hidden sm:table-cell">Delivery Man ID</th>
+              <th className="p-2">Status</th>
+              <th className="p-2">Actions</th>
             </tr>
           </thead>
           <tbody>
             {myparcel.map((parcel, index) => (
               <tr
                 key={parcel._id}
-                className={`${
-                  index % 2 === 0 ? "bg-white" : "bg-slate-100"
-                } border-black`}
+                className={`${index % 2 === 0 ? "bg-white" : "bg-gray-50"}`}
               >
-                <td>{index + 1}</td>
-                <td>{parcel.parcelType}</td>
-                <td>{parcel.deliveryDate}</td>
-                <td>{parcel.App_delivery_date || "TBD"}</td>
-                <td>{parcel.bookingDate}</td>
-                <td>{parcel?.deliverymanId || "Unassigned"}</td>
-                <td
-                  className={`${
-                    parcel.status === "delivered"
-                      ? "text-red-500"
-                      : parcel.status === "cancel"
-                      ? "text-red-500"
-                      : parcel.status === "On the Way"
-                      ? "text-orange-500"
-                      : parcel.status === "pending"
-                      ? "text-blue-500"
-                      : ""
-                  }`}
-                >
-                  {parcel.status}
+                <td className="p-2">{index + 1}</td>
+                <td className="p-2">{parcel.parcelType}</td>
+                <td className="p-2 hidden md:table-cell">{parcel.deliveryDate}</td>
+                <td className="p-2 hidden md:table-cell">
+                  {parcel.App_delivery_date || "TBD"}
                 </td>
-
-                <td className="flex flex-col justify-center gap-1">
+                <td className="p-2">{parcel.bookingDate}</td>
+                <td className="p-2 hidden sm:table-cell">
+                  {parcel?.deliverymanId || "Unassigned"}
+                </td>
+                <td className="p-2">
+                  <span
+                    className={`font-semibold ${
+                      parcel.status === "delivered"
+                        ? "text-green-500"
+                        : parcel.status === "cancel"
+                        ? "text-red-500"
+                        : parcel.status === "On the Way"
+                        ? "text-orange-500"
+                        : "text-blue-500"
+                    }`}
+                  >
+                    {parcel.status}
+                  </span>
+                </td>
+                <td className="p-2 space-y-1">
                   {/* Update Button */}
                   <Link
                     to={`/dashboard/update/parcel/${parcel._id}`}
-                    className={`btn btn-sm ${
-                      parcel.status === "pending"
-                        ? "btn-primary"
-                        : "btn-disabled"
+                    className={`btn btn-xs md:btn-sm ${
+                      parcel.status === "pending" ? "btn-primary" : "btn-disabled"
                     }`}
                     disabled={parcel.status !== "pending"}
                   >
@@ -158,9 +144,9 @@ const MyParcels = () => {
 
                   {/* Cancel Button */}
                   <button
-                    className={`btn btn-sm ${
+                    className={`btn btn-xs md:btn-sm ${
                       parcel.status === "pending" ? "btn-error" : "btn-disabled"
-                    } ml-2`}
+                    }`}
                     onClick={() => handleCancel(parcel._id)}
                     disabled={parcel.status !== "pending"}
                   >
@@ -170,129 +156,75 @@ const MyParcels = () => {
                   {/* Review Button */}
                   {parcel.status === "delivered" && parcel.deliverymanId && (
                     <label
-                      onClick={() => handledId(parcel.deliverymanId)}
+                      onClick={() => setDmanid(parcel.deliverymanId)}
                       htmlFor="review-modal"
-                      className="btn btn-primary"
+                      className="btn btn-xs md:btn-sm btn-primary"
                     >
-                      Give Review
+                      Review
                     </label>
                   )}
                 </td>
               </tr>
             ))}
           </tbody>
-          <div>
-            {/* Modal */}
-            <input type="checkbox" id="review-modal" className="modal-toggle" />
-            <div className="modal">
-              <div className="modal-box relative">
-                <label
-                  htmlFor="review-modal"
-                  className="btn btn-sm btn-circle absolute right-2 top-2"
-                >
-                  ✕
-                </label>
-                <h3 className="text-lg font-bold">Submit Your Review</h3>
-                <form
-                  onSubmit={handleSubmit(onSubmit)}
-                  className="mt-4 space-y-4"
-                >
-                  {/* User Name */}
-                  <div>
-                    <label className="label">
-                      <span className="label-text">Your Name</span>
-                    </label>
-                    <input
-                      type="text"
-                      defaultValue={user.displayName}
-                      {...register("userName")}
-                      className="input input-bordered w-full"
-                      readOnly
-                    />
-                  </div>
-
-                  {/* User Image */}
-                  <div>
-                    <label className="label">
-                      <span className="label-text">Your Image</span>
-                    </label>
-                    <input
-                      type="text"
-                      defaultValue={user.photoURL}
-                      {...register("userImage")}
-                      className="input input-bordered w-full"
-                      readOnly
-                    />
-                  </div>
-
-                  {/* Rating */}
-                  <div>
-                    <label className="label">
-                      <span className="label-text">Rating (out of 5)</span>
-                    </label>
-                    <input
-                      type="number"
-                      {...register("rating", {
-                        required: true,
-                        min: 1,
-                        max: 5,
-                      })}
-                      className="input input-bordered w-full"
-                      min="1"
-                      max="5"
-                    />
-                  </div>
-                  {/* Date */}
-                  <div>
-                    {" "}
-                    <label className="label">
-                      {" "}
-                      <span className="label-text">Current Date</span>{" "}
-                    </label>{" "}
-                    <input
-                      type="text"
-                      defaultValue={formattedDate}
-                      {...register("reviewDate")}
-                      className="input input-bordered w-full"
-                      readOnly
-                    />{" "}
-                  </div>
-                  {/* Feedback */}
-                  <div>
-                    <label className="label">
-                      <span className="label-text">Feedback</span>
-                    </label>
-                    <textarea
-                      {...register("feedback", { required: true })}
-                      className="textarea textarea-bordered w-full"
-                      placeholder="Write your feedback"
-                    />
-                  </div>
-
-                  {/* Delivery Man's ID */}
-                  <div>
-                    <label className="label">
-                      <span className="label-text">Delivery Man's ID</span>
-                    </label>
-                    <input
-                      type="text"
-                      defaultValue={dmanId}
-                      {...register("dmanID", { required: true })}
-                      className="input input-bordered w-full"
-                    />
-                  </div>
-
-                  {/* Submit Button */}
-                  <div className="modal-action">
-                    <button type="submit" className="btn btn-primary">
-                      Submit Review
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
         </table>
+      </div>
+
+      {/* Review Modal */}
+      <input type="checkbox" id="review-modal" className="modal-toggle" />
+      <div className="modal">
+        <div className="modal-box">
+          <label htmlFor="review-modal" className="btn btn-sm btn-circle absolute right-2 top-2">
+            ✕
+          </label>
+          <h3 className="text-lg font-bold">Submit Your Review</h3>
+          <form onSubmit={handleSubmit(onSubmit)} className="mt-4 space-y-4">
+            <input
+              type="text"
+              defaultValue={user.displayName}
+              {...register("userName")}
+              className="input input-bordered w-full"
+              readOnly
+            />
+            <input
+              type="text"
+              defaultValue={user.photoURL}
+              {...register("userImage")}
+              className="input input-bordered w-full"
+              readOnly
+            />
+            <input
+              type="number"
+              {...register("rating", { required: true, min: 1, max: 5 })}
+              className="input input-bordered w-full"
+              placeholder="Rating (1-5)"
+              min="1"
+              max="5"
+            />
+            <input
+              type="text"
+              defaultValue={formattedDate}
+              {...register("reviewDate")}
+              className="input input-bordered w-full"
+              readOnly
+            />
+            <textarea
+              {...register("feedback", { required: true })}
+              className="textarea textarea-bordered w-full"
+              placeholder="Feedback"
+            />
+            <input
+              type="text"
+              defaultValue={dmanId}
+              {...register("dmanID", { required: true })}
+              className="input input-bordered w-full"
+              readOnly
+            />
+            <button type="submit" className="btn btn-primary w-full">
+              Submit Review
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
