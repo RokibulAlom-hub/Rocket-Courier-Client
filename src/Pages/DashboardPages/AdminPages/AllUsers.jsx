@@ -3,16 +3,14 @@ import useAllusers from "../../../Hooks/useAllusers";
 import useAxiossecure from "../../../Hooks/useAxiossecure";
 import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 import Swal from "sweetalert2";
+import Heading from "../../Sharedcomponensts/Heading";
+import Loading from "../../Sharedcomponensts/Loading";
 const AllUsers = () => {
   const axiosSecure = useAxiossecure();
   const [users, laoding, err, refetch] = useAllusers();
   // const [roleChange,setRolechange] = useState('')
   if (laoding) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="text-xl font-semibold text-blue-600">Loading...</div>
-      </div>
-    );
+    return <Loading></Loading>;
   }
 
   if (err) {
@@ -44,15 +42,13 @@ const AllUsers = () => {
   };
 
   return (
-    <div className="p-6 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 rounded-lg shadow-lg">
-      <h1 className="text-3xl font-bold text-center text-purple-700 mb-6">
-        All Registered Users
-      </h1>
+    <div className=" ">
+      <Heading headtext="  All Registered Users"></Heading>
 
       {/* User Table */}
       <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
         <table className="table w-full text-center border-collapse border border-gray-300">
-          <thead className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white">
+          <thead className="">
             <tr>
               <th className="py-3 px-4">#</th>
               <th className="py-3 px-4">Name</th>

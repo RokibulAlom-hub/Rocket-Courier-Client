@@ -3,6 +3,8 @@ import { useState } from "react";
 import useAxiossecure from "../../../Hooks/useAxiossecure";
 import useAllparcels from "../../../Hooks/useAllparcels";
 import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
+import Heading from "../../Sharedcomponensts/Heading";
+import Loading from "../../Sharedcomponensts/Loading";
 
 const AllParcels = () => {
   const axiosSecure = useAxiossecure();
@@ -30,7 +32,7 @@ const AllParcels = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>;
   }
 
   if (error) {
@@ -38,14 +40,12 @@ const AllParcels = () => {
   }
 
   return (
-    <div className="p-6 max-w-7xl mx-auto bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-lg shadow-lg">
-      <h1 className="text-3xl text-center font-bold mb-6 text-blue-600">
-        All Parcels
-      </h1>
+    <div className="p-6 max-w-7xl mx-auto">
+    <Heading headtext="allparcel"></Heading>
 
-      <div className="overflow-x-auto bg-white rounded-lg shadow-md">
+      <div className="overflow-x-auto text-black rounded-lg shadow-md">
         <table className="table w-full text-gray-700">
-          <thead className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
+          <thead className=" ">
             <tr>
               <th>#</th>
               <th>User's Name</th>

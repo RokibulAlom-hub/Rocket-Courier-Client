@@ -3,6 +3,7 @@ import useAxiossecure from "../../../Hooks/useAxiossecure";
 import useAuth from "../../../Hooks/useAuth";
 import useRoleUser from "../../../Hooks/useRoleusers";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "../../Sharedcomponensts/Loading";
 
 const MyReviews = () => {
   const [role,roleId] = useRoleUser()
@@ -16,7 +17,7 @@ const MyReviews = () => {
      }
   })
   if (isLoading) {
-    return <div>loading...</div>
+    return <Loading></Loading>
   }
   if (error) {
     return <div>erro happend</div>

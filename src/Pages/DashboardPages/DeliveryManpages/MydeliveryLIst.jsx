@@ -11,6 +11,7 @@ import {
   FaTimesCircle,
   FaClock,
 } from "react-icons/fa";
+import Loading from "../../Sharedcomponensts/Loading";
 
 const MydeliveryLIst = () => {
   const axiosSecure = useAxiossecure();
@@ -64,7 +65,7 @@ const MydeliveryLIst = () => {
     return (
       <div className="flex items-center justify-center min-h-screen">
         {/* Loader Spinner */}
-        <div className="loader"></div>
+        <Loading></Loading>
       </div>
     );
   }

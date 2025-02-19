@@ -1,6 +1,7 @@
 
 import useAllparcels from "../../../Hooks/useAllparcels";
 import useAllusers from "../../../Hooks/useAllusers";
+import Loading from "../../Sharedcomponensts/Loading";
 import StatisCard from "./StatisCard";
 
 
@@ -11,7 +12,7 @@ const StatisticsCards = () => {
  
 
   if (isLoading || laoding) {
-    return <div>🍭 Loading sweet content... Hang tight! 🍭 </div>; 
+    return <Loading></Loading> 
   }
 
   // Filter the delivered parcels

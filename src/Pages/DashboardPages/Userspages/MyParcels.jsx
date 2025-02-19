@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 import Swal from "sweetalert2";
+import Loading from "../../Sharedcomponensts/Loading";
 
 const MyParcels = () => {
   const [dmanId, setDmanid] = useState("");
@@ -36,7 +37,7 @@ const MyParcels = () => {
     },
   });
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>
   }
   if (error) {
     return <div>Error fetching parcels: {error.message}</div>;

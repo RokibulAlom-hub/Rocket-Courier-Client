@@ -24,15 +24,15 @@ const Dashboard = () => {
       <Navbar></Navbar>
       <div className="min-h-screen flex">
         {/* Sidebar */}
-        <aside className="w-64 bg-gradient-to-b from-purple-500 via-indigo-500 to-blue-500 text-white shadow-lg">
-          <div className="p-4 text-center text-2xl font-extrabold border-b border-indigo-400">
+        <aside className="w-64 bg-accent text-white shadow-lg">
+          <div className="p-4 text-center text-2xl font-extrabold">
             Dashboard
           </div>
           <ul className="menu p-4 space-y-3">
             {/* if role is admin this dashboard links will be shown */}
             {role === "Admin" && (
               <>
-                <li className="hover:bg-indigo-600 rounded-md">
+                <li className=" rounded-md">
                   <NavLink
                     to="/dashboard/statistics"
                     className="block px-4 py-2 rounded-md"
@@ -40,28 +40,28 @@ const Dashboard = () => {
                     📊 Statistics
                   </NavLink>
                 </li>
-                <li className="hover:bg-indigo-600 rounded-md">
+                <li className=" rounded-md">
                   <NavLink
                     to="/dashboard/all-parcels"
                     className="block px-4 py-2 rounded-md"
                   >
-                    📦 All Parcels
+                    📦  Parcels
                   </NavLink>
                 </li>
-                <li className="hover:bg-indigo-600 rounded-md">
+                <li className=" rounded-md">
                   <NavLink
                     to="/dashboard/all-users"
                     className="block px-4 py-2 rounded-md"
                   >
-                    👥 All Users
+                    👥  Users
                   </NavLink>
                 </li>
-                <li className="hover:bg-indigo-600 rounded-md">
+                <li className=" rounded-md">
                   <NavLink
                     to="/dashboard/all-delivery-men"
                     className="block px-4 py-2 rounded-md"
                   >
-                    🚚 All Delivery Men
+                    🚚 Delivery Men
                   </NavLink>
                 </li>
               </>
@@ -69,7 +69,7 @@ const Dashboard = () => {
             {/* if role is user this dashboard links will be shown */}
             {role === "user" && (
               <>
-                <li className="hover:bg-indigo-600 rounded-md">
+                <li className=" rounded-md">
                   <NavLink
                     to="/dashboard/book-parcels"
                     className="block px-4 py-2 rounded-md"
@@ -77,7 +77,7 @@ const Dashboard = () => {
                     ✉️ Book A Parcel
                   </NavLink>
                 </li>
-                <li className="hover:bg-indigo-600 rounded-md">
+                <li className=" rounded-md">
                   <NavLink
                     to="/dashboard/my-parcels"
                     className="block px-4 py-2 rounded-md"
@@ -85,7 +85,7 @@ const Dashboard = () => {
                     📬 My Parcels
                   </NavLink>
                 </li>
-                <li className="hover:bg-indigo-600 rounded-md">
+                <li className=" rounded-md">
                   <NavLink
                     to="/dashboard/myprofile"
                     className="block px-4 py-2 rounded-md"
@@ -98,7 +98,7 @@ const Dashboard = () => {
             {/* if role is delivery man this dashboard links will be shown */}
             {role === "Delivery-Men" && (
               <>
-                <li className="hover:bg-indigo-600 rounded-md">
+                <li className=" rounded-md">
                   <NavLink
                     to="/dashboard/delivery-tasks"
                     className="block px-4 py-2 rounded-md"
@@ -106,7 +106,7 @@ const Dashboard = () => {
                     📋 Delivery Tasks
                   </NavLink>
                 </li>
-                <li className="hover:bg-indigo-600 rounded-md">
+                <li className=" rounded-md">
                   <NavLink
                     to="/dashboard/profile"
                     className="block px-4 py-2 rounded-md"
@@ -114,7 +114,7 @@ const Dashboard = () => {
                     🧑‍💼 My Profile
                   </NavLink>
                 </li>
-                <li className="hover:bg-indigo-600 rounded-md">
+                <li className=" rounded-md">
                   <NavLink
                     to="/dashboard/myprofile"
                     className="block px-4 py-2 rounded-md"
@@ -130,7 +130,6 @@ const Dashboard = () => {
         {/* Main Content */}
         <main className="flex-1">
           <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
             {/* Nested Routes */}
             <Outlet />
           </div>

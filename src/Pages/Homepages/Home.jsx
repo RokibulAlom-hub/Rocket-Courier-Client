@@ -5,6 +5,7 @@ import StatisticsCards from "./StatisticsPage/StatisticsCards";
 import TopdeliveryMan from "./TopDeliveryMan/TopdeliveryMan";
 import FAQ from "./Faq/Faq";
 import Feedback from "./Feedback/Feedback";
+import Logo from "./Logo/Logo";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <div className="space-y-20 w-11/12 mx-auto">
         <Features></Features>
         <StatisticsCards></StatisticsCards>
+        <Logo></Logo>
         <TopdeliveryMan></TopdeliveryMan>
         <FAQ></FAQ>
       </div>
