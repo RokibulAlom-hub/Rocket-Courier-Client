@@ -5,8 +5,8 @@ const Logo = () => {
 
   return (
     <div>
-        <Heading headtext="Trusted BY"></Heading>
-      <div className=" md:px-6 grid grid-cols-1  md:grid-cols-3  lg:grid-cols-4 gap-3 ">
+      <Heading headtext="Trusted BY"></Heading>
+      <div className=" grid grid-cols-1  md:grid-cols-3  lg:grid-cols-4 gap-3  place-items-center ">
         {logos.map((l, id) => (
           <img
             className="w-52 rounded-lg h-40"

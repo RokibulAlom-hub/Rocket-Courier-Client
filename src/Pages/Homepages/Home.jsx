@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <>
       <Banner></Banner>
-      <div className="space-y-20 w-11/12 mx-auto">
+      <div className="space-y-10 md:space-y-20 w-11/12 mx-auto">
         <Features></Features>
         <StatisticsCards></StatisticsCards>
         <CourierChargePlans></CourierChargePlans>

@@ -33,7 +33,7 @@ const Features = () => {
 
   return (
     <>
-      <div className=" text-center">
+      <div className=" text-center mt-10 md:mt-20">
         {/* Section Heading */}
         <Heading headtext="key features of our delivery system"></Heading>
         {/* Feature Cards */}

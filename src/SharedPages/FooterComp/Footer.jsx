@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container mx-auto px-6 lg:px-16">
         <div className="flex flex-wrap justify-between items-start">
           {/* Company Info */}
-          <div className="w-full md:w-1/3 mb-6 md:mb-0">
+          <div className="  md:w-1/3 mb-6 md:mb-0">
             <h2 className="text-3xl font-bold mb-3">Rocket-Courier</h2>
             <p className="text-gray-400">
               Delivering parcels with speed, precision, and care. Your trusted courier partner.
@@ -15,7 +15,7 @@ const Footer = () => {
           </div>
 
           {/* Navigation Links */}
-          <div className="w-full md:w-1/3 mb-6 md:mb-0">
+          <div className="  md:w-1/3 mb-6 md:mb-0">
             <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
             <ul className="space-y-2">
               <li>
@@ -47,7 +47,7 @@ const Footer = () => {
           </div>
 
           {/* Social Links */}
-          <div className="w-full md:w-1/3">
+          <div className="  md:w-1/3">
             <h3 className="text-lg font-semibold mb-3">Follow Us</h3>
             <p className="text-gray-400 mb-3">
               Stay connected with us on social media for updates and offers.
