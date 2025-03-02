@@ -40,7 +40,7 @@ const MydeliveryLIst = () => {
         `/update-status/${id}`,
         cancelStatus
       );
-      console.log(response.data);
+      // console.log(response.data);
       refetch();
       Sweetalert("Canceled", "SuccessFully cancel ", "success");
     }
@@ -55,7 +55,7 @@ const MydeliveryLIst = () => {
         `/update-status/${id}?dmanID=${roleId}`,
         deliverStatus
       );
-      console.log(response.data);
+      // console.log(response.data);
       refetch();
       Sweetalert("Delivery Done", "Successfully delivered", "success");
     }

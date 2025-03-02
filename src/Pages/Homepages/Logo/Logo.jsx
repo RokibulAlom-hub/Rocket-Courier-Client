@@ -1,7 +1,7 @@
 import logos from "../../../../public/Logo.json";
 import Heading from "../../Sharedcomponensts/Heading";
 const Logo = () => {
-  console.log(logos);
+  // console.log(logos);
 
   return (
     <div>

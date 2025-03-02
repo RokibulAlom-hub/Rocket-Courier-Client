@@ -8,7 +8,7 @@ const DmanCard = ({man,id}) => {
     return (
         <div
         key={man._id}
-        className="bg-text text-white rounded-lg shadow-lg overflow-hidden  transition-transform transform hover:scale-105 hover:shadow-xl"
+        className="bg-accent text-white rounded-lg shadow-lg overflow-hidden  transition-transform transform hover:scale-105 hover:shadow-xl"
         data-aos={id % 2 === 0 ? "fade-right" : "fade-left"} // Alternating animations
       >
         <div className="relative">

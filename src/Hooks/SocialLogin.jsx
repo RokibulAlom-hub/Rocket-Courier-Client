@@ -31,7 +31,7 @@ const SocialLogin = () => {
       <div className="mt-6">
         <button
           onClick={handlegoggle}
-          className="w-full px-4 py-2 bg-gray-500 text-white 
+          className="w-full px-4 py-2 bg-yellow-900 hover:bg-accent text-white 
                 rounded-lg flex items-center justify-center gap-2"
         >
           <BsGoogle />

@@ -43,7 +43,7 @@ const AllUsers = () => {
   return (
     <div className="p-4">
       <Heading headtext="All Registered Users"></Heading>
-
+      
       {/* User Table */}
       <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
         <table className="w-full text-center border-collapse border border-gray-300">

@@ -29,7 +29,7 @@ const Feedback = () => {
           {/* Overlay */}
           <div className="relative text-backup flex flex-col items-center space-y-3 justify-center h-full">
              <img src={ban.image} alt=""  className="w-40 rounded-box"/>
-             <p className="w-1/4 text-center">{ban.comments}</p>
+             <p className="w-2/4 text-center">{ban.comments}</p>
              <div className="text-center">
               <h4>{ban.name}</h4>
               <h4>{ban.job}</h4>

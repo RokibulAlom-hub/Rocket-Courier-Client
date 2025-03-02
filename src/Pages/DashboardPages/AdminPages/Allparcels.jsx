@@ -56,7 +56,7 @@ const AllParcels = () => {
             </tr>
           </thead>
           <tbody>
-            {parcels.map((parcel, index) => (
+            {parcels?.map((parcel, index) => (
               <tr
                 key={parcel._id}
                 className={`${index % 2 === 0 ? "bg-gray-100" : "bg-gray-50"}`}

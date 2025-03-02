@@ -5,10 +5,20 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../../Hooks/useAuth";
 const Banner = () => {
-  // console.log(banfile);
-
+  const {user} = useAuth()
+  const navigate = useNavigate()
+  console.log(user);
+   const handleBookbtn = () => {
+      if(user === null){
+        navigate ('/login')
+      }
+      else{
+        navigate ('/dashboard')
+      }
+   }
   return (
     <Swiper
       modules={[Navigation, Autoplay]} // Register Swiper modules
@@ -39,9 +49,9 @@ const Banner = () => {
             <p className="font-semibold w-2/4 text-center mb-2">
               {ban.description}
             </p>
-            <button className="bg-accent p-2 rounded-md hover:bg-yellow-900">
+            <Link onClick={handleBookbtn} className="bg-accent p-2 rounded-md hover:bg-yellow-900">
               Book A Parcel
-            </button>
+            </Link >
           </div>
         </SwiperSlide>
       ))}

@@ -77,12 +77,12 @@ const Dashboard = () => {
                   📬 My Parcels
                 </NavLink>
 
-                <NavLink
+                {/* <NavLink
                   to="/dashboard/myprofile"
                   className="block   rounded-md"
                 >
                   🧑‍💼 My Profile
-                </NavLink>
+                </NavLink> */}
               </>
             )}
             {/* if role is delivery man this dashboard links will be shown */}
@@ -96,22 +96,28 @@ const Dashboard = () => {
                 </NavLink>
 
                 <NavLink to="/dashboard/profile" className="block   rounded-md">
-                  🧑‍💼 My Profile
+                  🛠️ My Reveiws
                 </NavLink>
 
-                <NavLink
+                {/* <NavLink
                   to="/dashboard/myprofile"
                   className="block   rounded-md"
                 >
-                  🛠️ Update Profile
-                </NavLink>
+                   Update Profile
+                </NavLink> */}
               </>
             )}
           </ul>
           <div className="divider"></div>
           <ul className="menu p-4 space-y-3">
             <NavLink to="/" className="flex items-center gap-1">
-           < FcHome /> Home
+              <FcHome /> Home
+            </NavLink>
+            <NavLink
+              to="/dashboard/profilePage"
+              className="flex items-center gap-1"
+            >
+              🧑‍💼 My Profile
             </NavLink>
           </ul>
         </aside>

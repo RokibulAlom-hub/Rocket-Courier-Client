@@ -26,7 +26,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-backup w-full sticky top-0 z-50 shadow-2xl">
+    <div className="bg-accent text-backup w-full sticky top-0 z-50 shadow-2xl">
       <nav className="py-4 flex relative  justify-between items-center w-11/12 mx-auto">
         {/* Logo and Website Name and menu bar for responsive  */}
         <div className="flex items-center relative">
@@ -42,13 +42,13 @@ const Navbar = () => {
                 Home
               </NavLink>
               <NavLink
-                to="about"
+                to="/about"
                 
               >
                 About
               </NavLink>
               <NavLink
-                to="contact"
+                to="/contact"
                 
               >
                 Contact
@@ -109,7 +109,7 @@ const Navbar = () => {
           ) : (
             <Link
               to="login"
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              className="bg-yellow-900 text-white px-4 py-2 rounded "
             >
               Login
             </Link>

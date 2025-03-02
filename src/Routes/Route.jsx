@@ -13,9 +13,11 @@ import Allparcels from "../Pages/DashboardPages/AdminPages/Allparcels";
 import MyParcels from "../Pages/DashboardPages/Userspages/MyParcels";
 import MydeliveryLIst from "../Pages/DashboardPages/DeliveryManpages/MydeliveryLIst";
 import UpdateParcel from "../Pages/DashboardPages/Userspages/UpdateParcel";
-import MyProfile from "../Pages/DashboardPages/Userspages/MyProfile";
 import Statistics from "../Pages/DashboardPages/AdminPages/Statistics";
 import MyReviews from "../Pages/DashboardPages/DeliveryManpages/MYReveiws";
+import About from "../Pages/Sharedcomponensts/About";
+import Contact from "../Pages/Sharedcomponensts/Contact";
+import ProfilePage from "../Pages/DashboardPages/Myprofile/ProfilePage";
 
 export const router = createBrowserRouter([
   // mainlayout
@@ -36,6 +38,14 @@ export const router = createBrowserRouter([
         path: "/login",
         element: <Login></Login>,
       },
+      {
+        path: "/about",
+        element: <About></About>
+      },
+      {
+        path: "/contact",
+        element: <Contact></Contact>
+      }
     ],
   },
   //   dashboard layout
@@ -78,11 +88,7 @@ export const router = createBrowserRouter([
             loader: ({ params }) => fetch(`https://b10a12-server-side-rokibul-alom-hub.vercel.app/${params.id}`)
 
         },
-        {
-            path:"/dashboard/myprofile",
-            element:<MyProfile></MyProfile>,
-
-        },
+    
         // deliveryman routes
         {
             path:"/dashboard/delivery-tasks",
@@ -92,6 +98,12 @@ export const router = createBrowserRouter([
             path:"/dashboard/profile",
             element:<MyReviews></MyReviews>
         },
+        // routes for all users
+        {
+            path:"/dashboard/profilePage",
+            element:<ProfilePage></ProfilePage>
+        },
     ],
   },
+ 
 ]);
