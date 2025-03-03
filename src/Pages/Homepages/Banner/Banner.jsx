@@ -10,7 +10,7 @@ import useAuth from "../../../Hooks/useAuth";
 const Banner = () => {
   const {user} = useAuth()
   const navigate = useNavigate()
-  console.log(user);
+  // console.log(user);
    const handleBookbtn = () => {
       if(user === null){
         navigate ('/login')

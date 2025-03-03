@@ -146,7 +146,7 @@ const BookParcel = () => {
             Delivery Address Latitude
           </label>
           <input
-            type="text"
+            type="number"
             placeholder="Enter latitude"
             {...register("latitude")}
             className="input input-bordered w-full"
@@ -158,7 +158,7 @@ const BookParcel = () => {
             Delivery Address Longitude
           </label>
           <input
-            type="text"
+            type="number"
             placeholder="Enter longitude"
             {...register("longitude")}
             className="input input-bordered w-full"

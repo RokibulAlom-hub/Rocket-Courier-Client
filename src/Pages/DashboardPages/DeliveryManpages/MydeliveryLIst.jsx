@@ -9,14 +9,14 @@ import {
   FaCalendarAlt,
   FaCheckCircle,
   FaTimesCircle,
-  FaClock,
 } from "react-icons/fa";
 import Loading from "../../Sharedcomponensts/Loading";
+import MapComponent from "./Mapcomponent";
 
 const MydeliveryLIst = () => {
   const axiosSecure = useAxiossecure();
   const [role, roleId] = useRoleUser();
-  console.log(roleId, role);
+  // console.log(roleId, role);
 
   const {
     data: deliveryList = [],
@@ -30,7 +30,7 @@ const MydeliveryLIst = () => {
       return response.data;
     },
   });
-
+  console.log(deliveryList);
   const handleCancel = async (id) => {
     if (id) {
       const cancelStatus = {
@@ -99,35 +99,34 @@ const MydeliveryLIst = () => {
           <table className="w-full table-auto bg-white shadow rounded-lg overflow-hidden">
             <thead className="bg-gray-200 text-gray-700 text-sm">
               <tr>
-                <th className="px-3 py-2 text-left">
+                <th className="px-1 py-2 text-left">
                   <FaUser className="inline mr-1" />
                   User Name
                 </th>
-                <th className="px-3 py-2 text-left">
+                <th className="px-1 py-2 text-left">
                   <FaUser className="inline mr-1" />
                   Receiver Name
                 </th>
-                <th className="px-3 py-2 text-left">
+                <th className="px-1 py-2 text-left">
                   <FaPhone className="inline mr-1" />
                   User Phone
                 </th>
-                <th className="px-3 py-2 text-left">
-                  <FaCalendarAlt className="inline mr-1" />
-                  Requested Date
+                <th className="px-1 py-2 text-left">
+                  Longitude & Latitude
                 </th>
-                <th className="px-3 py-2 text-left">
+                <th className="px-1 py-2 text-left">
                   <FaCalendarAlt className="inline mr-1" />
                   Approx. Delivery Date
                 </th>
-                <th className="px-3 py-2 text-left">
+                <th className="px-1 py-2 text-left">
                   <FaPhone className="inline mr-1" />
                   Receiver Phone
                 </th>
-                <th className="px-3 py-2 text-left">
+                <th className="px-1 py-2 text-left">
                   <FaMapMarkerAlt className="inline mr-1" />
                   Receiver Address
                 </th>
-                <th className="px-3 py-2 text-left">Actions</th>
+                <th className="px-1 py-2 text-left">Actions</th>
               </tr>
             </thead>
             <tbody className="text-sm text-gray-600">
@@ -138,14 +137,45 @@ const MydeliveryLIst = () => {
                     index % 2 === 0 ? "bg-gray-50" : "bg-white"
                   } hover:bg-gray-100 transition duration-200`}
                 >
-                  <td className="px-3 py-2">{parcel.name}</td>
-                  <td className="px-3 py-2">{parcel.receiverName}</td>
-                  <td className="px-3 py-2">{parcel.phone}</td>
-                  <td className="px-3 py-2">{parcel.bookingDate}</td>
-                  <td className="px-3 py-2">{parcel.App_delivery_date}</td>
-                  <td className="px-3 py-2">{parcel.receiverPhone}</td>
-                  <td className="px-3 py-2">{parcel.deliveryAddress}</td>
-                  <td className="px-3 py-2">
+                  <td className="px-1 py-2">{parcel.name}</td>
+                  <td className="px-1 py-2">{parcel.receiverName}</td>
+                  <td className="px-1 py-2">{parcel.phone}</td>
+                  {/* Open the modal using document.getElementById('ID').showModal() method */}
+                  <button
+                    className="pt-4 text-blue-500"
+                    onClick={() =>
+                      document.getElementById("my_modal_5").showModal()
+                    }
+                  >
+                    View Map
+                  </button>
+                  <dialog
+                    id="my_modal_5"
+                    className="modal modal-bottom sm:modal-middle"
+                  >
+                    <div className="modal-box">
+                      <MapComponent
+                        latitude={
+                          parcel?.latitude ? parseFloat(parcel?.latitude) : ""
+                        }
+                        longitude={
+                          parcel?.longitude ? parseFloat(parcel?.longitude) : ""
+                        }
+                        address={parcel?.deliveryAddress
+                        }
+                      />
+                      <div className="modal-action">
+                        <form method="dialog">
+                          {/* if there is a button in form, it will close the modal */}
+                          <button className="btn">Close</button>
+                        </form>
+                      </div>
+                    </div>
+                  </dialog>
+                  <td className="px-1 py-2">{parcel.App_delivery_date}</td>
+                  <td className="px-1 py-2">{parcel.receiverPhone}</td>
+                  <td className="px-1 py-2">{parcel.deliveryAddress}</td>
+                  <td className="px-1 py-2">
                     {parcel.status === "delivered" ? (
                       <span className="flex items-center text-green-600">
                         <FaCheckCircle className="mr-1" />
@@ -156,24 +186,23 @@ const MydeliveryLIst = () => {
                         <FaTimesCircle className="mr-1" />
                         Cancelled
                       </span>
-                    ) : 
-                    (
-                    <div className="flex">
-                      <button
-                        onClick={() => handleCancel(parcel._id)}
-                        title="Cancel"
-                        className="text-red-600 btn hover:text-red-800"
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        onClick={() => handleDeliver(parcel._id)}
-                        title="Deliver"
-                        className="text-green-600 btn hover:text-green-800"
-                      >
-                        Deliver
-                      </button>
-                    </div>
+                    ) : (
+                      <div className="flex">
+                        <button
+                          onClick={() => handleCancel(parcel._id)}
+                          title="Cancel"
+                          className="text-red-600 btn hover:text-red-800"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          onClick={() => handleDeliver(parcel._id)}
+                          title="Deliver"
+                          className="text-green-600 btn hover:text-green-800"
+                        >
+                          Deliver
+                        </button>
+                      </div>
                     )}
                   </td>
                 </tr>

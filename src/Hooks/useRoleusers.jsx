@@ -6,24 +6,23 @@ const useRoleUser = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiospublic();
   const [role, setRole] = useState(null);
-  const[roleId,setRoleid] = useState('');
-  const [userdata,setUserdata] = useState(null)
+  const [roleId,setRoleId] = useState("")
   useEffect(() => {
     if (user && user.email) {
-      axiosPublic.get(`/user/role/${user.email}`)
-        .then(res => {
-          setUserdata(res.data)
+      axiosPublic
+        .get(`/user/role/${user.email}`)
+        .then((res) => {
           setRole(res.data.role);
-          setRoleid(res.data._id)
-           // Assuming the response contains the role in res.data.role
+          setRoleId(res.data._id)
+          // Assuming the response contains the role in res.data.role
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Failed to fetch user role:", error);
         });
     }
   }, [user, user?.email, axiosPublic]);
 
-  return [role,roleId,userdata] ;
-}
+  return [role,roleId];
+};
 
 export default useRoleUser;

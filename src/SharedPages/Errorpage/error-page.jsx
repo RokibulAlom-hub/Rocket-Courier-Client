@@ -9,7 +9,7 @@ export default function ErrorPage() {
       <h1 className="text-6xl font-bold text-red-500 ">Oops!</h1>
       <p className="text-xl">Sorry, an unexpected error has occurred.</p>
       <p className="text-lg italic">
-        {error.statusText || eraror.message}
+        {error.statusText || error.message}
       </p>
       <Link to="/" className="p-2 text-bgcolor bg-accent rounded-md">Back To  Home </Link>
     </div>
