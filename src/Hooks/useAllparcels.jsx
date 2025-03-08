@@ -13,7 +13,7 @@ const useAllparcels = () => {
         queryKey: ["allparcels"],
         queryFn: async () => {
           const response = await axiosSecure.get("/allparcels");
-          return response.data;
+          return response.data?.result;
         },
       });
       return [parcels,isLoading,error,refetch]

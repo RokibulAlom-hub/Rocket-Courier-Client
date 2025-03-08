@@ -21,8 +21,8 @@ const Login = () => {
   // Prefill credentials
   const handlePrefill = (role) => {
     const credentials = {
-      admin: { email: "rokibbhai@gmail.com", password: "0123456" },
-      deliveryman: { email: "mahfuzbhai@gmail.com", password: "0123456" },
+      admin: { email: "parcelAdmin@gmail.com", password: "0123456" },
+      deliveryman: { email: "fastboy4@gmail.com", password: "0123456" },
     };
 
     if (credentials[role]) {

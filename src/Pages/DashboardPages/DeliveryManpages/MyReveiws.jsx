@@ -23,15 +23,15 @@ const MyReviews = () => {
     return <div>erro happend</div>
   }
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className=" ">
       <h1 className="text-2xl font-bold mb-4">My Reviews</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1  lg:grid-cols-3 gap-6">
         {reviews.length > 0 ? (
           reviews.map((review, index) => (
             <div key={index} className="card shadow-xl bg-white p-4 rounded-md">
               {/* Review Giver's Information */}
-              <div className="flex items-center mb-4">
+              <div className="flex flex-col md:flex-row items-center mb-4">
                 <img
                   src={review.userImage || "/default-avatar.png"} // Default avatar if no image
                   alt="User"
@@ -47,6 +47,7 @@ const MyReviews = () => {
               <div className="mb-4">
                 <div className="flex items-center mb-2">
                   <span className="text-yellow-500">{'★'.repeat(review.rating)}</span>
+                  <br />
                   <span className="text-gray-500 ml-2">{review.rating} / 5</span>
                 </div>
                 <p className="text-gray-700">{review.feedback}</p>

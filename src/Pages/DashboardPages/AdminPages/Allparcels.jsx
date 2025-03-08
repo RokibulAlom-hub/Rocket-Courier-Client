@@ -5,21 +5,55 @@ import useAllparcels from "../../../Hooks/useAllparcels";
 import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 import Heading from "../../Sharedcomponensts/Heading";
 import Loading from "../../Sharedcomponensts/Loading";
+import { useQuery } from "@tanstack/react-query";
 
 const AllParcels = () => {
   const axiosSecure = useAxiossecure();
   const { deliveryMan } = useDeliveryman();
+  // declare state for dynamic page change
+  const [currentPage,setCurrentPage] = useState(0)
   const [appDate, setAppdate] = useState("");
   const [dMan, setDman] = useState(null);
-  const [parcels, isLoading, error, refetch] = useAllparcels();
-
+  // const [parcels, isLoading, error, refetch] = useAllparcels();
+  // get the data from server 
+  const {
+    data,
+    isLoading,
+    error,
+    refetch
+  } = useQuery({
+    queryKey: ["allparcels",currentPage],
+    queryFn: async () => {
+      // get data by querys [first get datalength , then by query data]
+      const response = await axiosSecure.get(`/allparcels?page=${currentPage}&size=${numberOfparcels}`);
+      return response.data;
+    },
+  });
+  const parcels = data?.result;
+   // get the total length of data
+  const count = data?.totatParcels;
+  // declare how many data show you in one page
+  const numberOfparcels = 5;
+ 
+  
+  // then get the number of pages
+  const numberOfpages = Math.ceil(count / numberOfparcels);
+  // now you have to show each page one by one
+  const pages = [];
+  for (let i = 0; i < numberOfpages; i++) {
+    pages.push(i);
+  }
+  console.log(data);
   const handleManage = async (id) => {
     const updateMange = {
       appDate,
       dmanId: dMan._id,
       status: "On the Way",
     };
-    const response = await axiosSecure.patch(`/manage-parcel/${id}`, updateMange);
+    const response = await axiosSecure.patch(
+      `/manage-parcel/${id}`,
+      updateMange
+    );
     refetch();
     const modal = document.getElementById(`modal_${id}`);
     if (modal) {
@@ -93,7 +127,9 @@ const AllParcels = () => {
                     <button
                       className={`p-3 rounded-lg text-white bg-violet-600`}
                       onClick={() =>
-                        document.getElementById(`modal_${parcel._id}`).showModal()
+                        document
+                          .getElementById(`modal_${parcel._id}`)
+                          .showModal()
                       }
                     >
                       Manage
@@ -150,6 +186,19 @@ const AllParcels = () => {
             ))}
           </tbody>
         </table>
+        {/* buttons */}
+        <div className="font-semibold text-xl my-2 text-center space-x-2">
+          {pages.map(page =>   <button
+          onClick={()=> setCurrentPage(page)}
+            className={
+              currentPage === page
+                ? "bg-orange-400 px-1 rounded   text-white "
+                : "px-1 rounded bg-black  text-white"
+            }
+          >
+            {page+1}
+          </button>)}
+        </div>
       </div>
     </div>
   );

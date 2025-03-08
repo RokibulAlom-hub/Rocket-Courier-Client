@@ -15,8 +15,9 @@ const Statistics = () => {
     const fetchData = async () => {
       try {
         const response = await axiosSecure.get("/allparcels");
-        const data = response.data;
-
+        const data = response.data?.result;
+        console.log(data);
+        
         // Group data by booking date and count bookings
         const groupedData = data.reduce((acc, item) => {
           acc[item.bookingDate] = (acc[item.bookingDate] || 0) + 1;

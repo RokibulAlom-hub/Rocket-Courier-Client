@@ -13,10 +13,9 @@ const useAllUsers = () => {
     queryKey: ["allusers"],
     queryFn: async () => {
       const response = await axiosSecure.get(`/allusers`);
-      return response.data;
+      return response.data?.result;
     },
   });
-
   return [users, laoding, err, refetch];
 };
 

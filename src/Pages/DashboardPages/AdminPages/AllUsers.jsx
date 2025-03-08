@@ -1,16 +1,51 @@
 import { useState } from "react";
-import useAllusers from "../../../Hooks/useAllusers";
 import useAxiossecure from "../../../Hooks/useAxiossecure";
 import { Sweetalert } from "../../../Hooks/UseSweetalerts/Sweetalert";
 import Swal from "sweetalert2";
 import Heading from "../../Sharedcomponensts/Heading";
 import Loading from "../../Sharedcomponensts/Loading";
+import { useQuery } from "@tanstack/react-query";
 
 const AllUsers = () => {
   const axiosSecure = useAxiossecure();
-  const [users, loading, err, refetch] = useAllusers();
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerpage = 6;
+  const {
+    data,
+    isLoading: laoding,
+    error: err,
+    refetch,
+  } = useQuery({
+    queryKey: ["allusers", currentPage],
+    queryFn: async () => {
+      const response = await axiosSecure.get(
+        `/allusers?page=${currentPage}&size=${itemsPerpage}`
+      );
+      return response.data;
+    },
+  });
+  const totalUser = data?.totalUser;
+  const users = data?.result || [];
+  // console.log(data);
 
-  if (loading) {
+  const numberofPages = Math.ceil(totalUser / itemsPerpage);
+  const pages = [];
+  for (let i = 0; i < numberofPages; i++) {
+    pages.push(i);
+  }
+  // const pages = [...Array(numberofPages).keys()];
+  console.log(pages);
+  const handlePrev = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  const handleNext = () => {
+    if (currentPage < pages?.length - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+  if (laoding) {
     return <Loading></Loading>;
   }
 
@@ -43,16 +78,17 @@ const AllUsers = () => {
   return (
     <div className="p-4">
       <Heading headtext="All Registered Users"></Heading>
-      
+
       {/* User Table */}
       <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
         <table className="w-full text-center border-collapse border border-gray-300">
           <thead className="bg-gray-200">
-            <tr>
-              <th className="py-3 ">Name</th>
-              <th className="py-3 hidden md:table-cell">Phone Number</th>
-              <th className="py-3">User Status</th>
-              <th className="py-3">Actions</th>
+            <tr className="space-y-3">
+              <th>#</th>
+              <th>Name</th>
+              <th className=" hidden md:table-cell">Phone Number</th>
+              <th>User Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -61,7 +97,8 @@ const AllUsers = () => {
                 key={user._id}
                 className={`${index % 2 === 0 ? "bg-gray-100" : "bg-gray-50"}`}
               >
-                <td className="py-3 ">{user.name}</td>
+                <td>{index + 1}</td>
+                <td className="py-3 ">{user?.name}</td>
                 <td className="py-3 hidden md:table-cell">
                   {user.phoneNumber || "N/A"}
                 </td>
@@ -92,6 +129,23 @@ const AllUsers = () => {
             ))}
           </tbody>
         </table>
+        {/* pages button */}
+        <div className="font-semibold text-xl my-2 text-center space-x-2">
+          <button onClick={handlePrev}>Prev</button>
+          {pages.map((page) => (
+            <button
+              onClick={() => setCurrentPage(page)}
+              className={
+                currentPage === page
+                  ? "bg-orange-400 px-1 rounded   text-white "
+                  : "px-1 rounded bg-black  text-white"
+              }
+            >
+              {page + 1}
+            </button>
+          ))}
+          <button onClick={handleNext}>Next</button>
+        </div>
       </div>
     </div>
   );

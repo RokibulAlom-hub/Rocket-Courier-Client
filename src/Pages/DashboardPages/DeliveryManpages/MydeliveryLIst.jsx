@@ -99,6 +99,7 @@ const MydeliveryLIst = () => {
           <table className="w-full table-auto bg-white shadow rounded-lg overflow-hidden">
             <thead className="bg-gray-200 text-gray-700 text-sm">
               <tr>
+                <th className="px-1 py-2 text-left">#</th>
                 <th className="px-1 py-2 text-left">
                   <FaUser className="inline mr-1" />
                   User Name
@@ -111,9 +112,7 @@ const MydeliveryLIst = () => {
                   <FaPhone className="inline mr-1" />
                   User Phone
                 </th>
-                <th className="px-1 py-2 text-left">
-                  Longitude & Latitude
-                </th>
+                <th className="px-1 py-2 text-left">Longitude & Latitude</th>
                 <th className="px-1 py-2 text-left">
                   <FaCalendarAlt className="inline mr-1" />
                   Approx. Delivery Date
@@ -137,6 +136,7 @@ const MydeliveryLIst = () => {
                     index % 2 === 0 ? "bg-gray-50" : "bg-white"
                   } hover:bg-gray-100 transition duration-200`}
                 >
+                  <td className="px-1 py-2">{index+1}.</td>
                   <td className="px-1 py-2">{parcel.name}</td>
                   <td className="px-1 py-2">{parcel.receiverName}</td>
                   <td className="px-1 py-2">{parcel.phone}</td>
@@ -161,8 +161,7 @@ const MydeliveryLIst = () => {
                         longitude={
                           parcel?.longitude ? parseFloat(parcel?.longitude) : ""
                         }
-                        address={parcel?.deliveryAddress
-                        }
+                        address={parcel?.deliveryAddress}
                       />
                       <div className="modal-action">
                         <form method="dialog">
@@ -187,7 +186,7 @@ const MydeliveryLIst = () => {
                         Cancelled
                       </span>
                     ) : (
-                      <div className="flex">
+                      <div className="flex gap-1">
                         <button
                           onClick={() => handleCancel(parcel._id)}
                           title="Cancel"
