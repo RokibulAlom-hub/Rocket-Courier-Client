@@ -7,6 +7,7 @@ import { FcHome } from "react-icons/fc";
 const Dashboard = () => {
   const navigate = useNavigate();
   const [role] = useRoleUser();
+  console.log(role);
   useEffect(() => {
     if (role === "Admin") {
       navigate("/dashboard/statistics");
@@ -20,42 +21,24 @@ const Dashboard = () => {
   }, [role, navigate]);
   return (
     <>
-      <div className="min-h-screen flex">
+      <div className="min-h-screen flex flex-col lg:flex-row">
         {/* Sidebar */}
-        <aside className="w-64 bg-accent text-white shadow-lg">
+        <aside className="w-full lg:w-64 bg-accent text-white shadow-lg">
           <div className="p-4 text-center text-4xl font-semibold">
             Dashboard
           </div>
           <div className="divider"></div>
 
-          <ul className="menu text-bgcolor font-semibold p-4 space-y-3">
+          <ul className="flex md:flex-col  text-bgcolor font-semibold md:p-2 gap-1 md:space-y-3">
             {/* if role is admin this dashboard links will be shown */}
             {role === "Admin" && (
               <>
-                <NavLink
-                  to="/dashboard/statistics"
-                  className="block   rounded-md"
-                >
-                  📊 Statistics
-                </NavLink>
-                <NavLink
-                  to="/dashboard/all-parcels"
-                  className="block   rounded-md"
-                >
-                  📦 Parcels
-                </NavLink>
+                <NavLink to="/dashboard/statistics">📊 Statistics</NavLink>
+                <NavLink to="/dashboard/all-parcels">📦 Parcels</NavLink>
 
-                <NavLink
-                  to="/dashboard/all-users"
-                  className="block   rounded-md"
-                >
-                  👥 Users
-                </NavLink>
+                <NavLink to="/dashboard/all-users">👥 Users</NavLink>
 
-                <NavLink
-                  to="/dashboard/all-delivery-men"
-                  className="block   rounded-md"
-                >
+                <NavLink to="/dashboard/all-delivery-men">
                   🚚 Delivery Men
                 </NavLink>
               </>
@@ -63,23 +46,13 @@ const Dashboard = () => {
             {/* if role is user this dashboard links will be shown */}
             {role === "user" && (
               <>
-                <NavLink
-                  to="/dashboard/book-parcels"
-                  className="block   rounded-md"
-                >
-                  ✉️ Book A Parcel
-                </NavLink>
+                <NavLink to="/dashboard/book-parcels">✉️ Book A Parcel</NavLink>
 
-                <NavLink
-                  to="/dashboard/my-parcels"
-                  className="block   rounded-md"
-                >
-                  📬 My Parcels
-                </NavLink>
+                <NavLink to="/dashboard/my-parcels">📬 My Parcels</NavLink>
 
                 {/* <NavLink
                   to="/dashboard/myprofile"
-                  className="block   rounded-md"
+                 
                 >
                   🧑‍💼 My Profile
                 </NavLink> */}
@@ -88,20 +61,15 @@ const Dashboard = () => {
             {/* if role is delivery man this dashboard links will be shown */}
             {role === "Delivery-Men" && (
               <>
-                <NavLink
-                  to="/dashboard/delivery-tasks"
-                  className="block   rounded-md"
-                >
+                <NavLink to="/dashboard/delivery-tasks">
                   📋 Delivery Tasks
                 </NavLink>
 
-                <NavLink to="/dashboard/profile" className="block   rounded-md">
-                  🛠️ My Reveiws
-                </NavLink>
+                <NavLink to="/dashboard/profile">🛠️ My Reveiws</NavLink>
 
                 {/* <NavLink
                   to="/dashboard/myprofile"
-                  className="block   rounded-md"
+                 
                 >
                    Update Profile
                 </NavLink> */}
@@ -109,15 +77,15 @@ const Dashboard = () => {
             )}
           </ul>
           <div className="divider"></div>
-          <ul className="menu p-4 space-y-3">
+          <ul className="flex md:flex-col md:p-4 md:space-y-3 pb-4 gap-2">
             <NavLink to="/" className="flex items-center gap-1">
               <FcHome /> Home
             </NavLink>
             <NavLink
               to="/dashboard/profilePage"
-              className="flex items-center gap-1"
+              
             >
-              🧑‍💼 My Profile
+          🧑‍💼 My Profile
             </NavLink>
           </ul>
         </aside>

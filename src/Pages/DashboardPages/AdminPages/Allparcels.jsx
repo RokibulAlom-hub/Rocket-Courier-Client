@@ -34,8 +34,18 @@ const AllParcels = () => {
   const count = data?.totatParcels;
   // declare how many data show you in one page
   const numberOfparcels = 5;
- 
-  
+  // handlePrevious button function
+  const handleprev = () => {
+    if(currentPage > 0){
+      setCurrentPage(currentPage - 1)
+    }
+  }
+  // handleNext button function 
+  const handleNext = () => {
+    if (currentPage < pages?.length -1)  {
+      setCurrentPage(currentPage + 1)
+    }
+  }
   // then get the number of pages
   const numberOfpages = Math.ceil(count / numberOfparcels);
   // now you have to show each page one by one
@@ -188,6 +198,7 @@ const AllParcels = () => {
         </table>
         {/* buttons */}
         <div className="font-semibold text-xl my-2 text-center space-x-2">
+        <button onClick={handleprev}>Prev</button>
           {pages.map(page =>   <button
           onClick={()=> setCurrentPage(page)}
             className={
@@ -198,6 +209,7 @@ const AllParcels = () => {
           >
             {page+1}
           </button>)}
+          <button onClick={handleNext}>Next</button>
         </div>
       </div>
     </div>

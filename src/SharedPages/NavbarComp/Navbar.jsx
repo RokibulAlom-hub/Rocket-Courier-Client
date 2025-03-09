@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
-import logo from "../../assets/icon.svg";
+import logo from "../../assets/7745056_3737247.jpg";
 import "./Navabar.css";
 import { AiOutlineMenu } from "react-icons/ai";
 const Navbar = () => {
@@ -59,7 +59,7 @@ const Navbar = () => {
             </div>
           )}
           <Link to="/" className="flex items-center gap-1">
-            <img src={logo} alt="Logo" className="h-8 w-8" />
+            <img src={logo} alt="Logo" className="w-6 h-6 rounded-md" />
             <span className="text-lg uppercase font-bold">Rocket-Courier</span>
           </Link>
         </div>
