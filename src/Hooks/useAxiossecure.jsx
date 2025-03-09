@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create an Axios instance
 export const axiosSecure = axios.create({
-  baseURL: "http://localhost:7000", // Replace with your server URL
+  baseURL: "https://rocket-courier-server.vercel.app", // Replace with your server URL
 });
 
 // Add an interceptor to the instance

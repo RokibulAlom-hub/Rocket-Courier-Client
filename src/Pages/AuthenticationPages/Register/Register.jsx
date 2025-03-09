@@ -61,7 +61,7 @@ const Register = () => {
             <input
               type="text"
               {...register("name", { required: "Name is required" })}
-              className="w-full px-4 py-2 border rounded-lg "
+              className="w-full px-4 py-2 border rounded-lg bg-white"
             />
             {errors.name && (
               <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
@@ -73,7 +73,7 @@ const Register = () => {
             <input
               type="number"
               {...register("number", { required: "Number is required" })}
-              className="w-full px-4 py-2 border rounded-lg "
+              className="w-full px-4 py-2 border rounded-lg bg-white"
             />
             {errors.name && (
               <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
@@ -86,7 +86,7 @@ const Register = () => {
             <input
               type="file"
               {...register("image", { required: "Photo URL is required" })}
-              className="w-full px-4 py-2 border rounded-lg "
+              className="w-full px-4 py-2 border rounded-lg bg-white"
             />
             {errors.photoURL && (
               <p className="text-red-500 text-sm mt-1">
@@ -101,7 +101,7 @@ const Register = () => {
             <input
               type="email"
               {...register("email", { required: "Email is required" })}
-              className="w-full px-4 py-2 border rounded-lg "
+              className="w-full px-4 py-2 border rounded-lg bg-white"
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">
@@ -122,7 +122,7 @@ const Register = () => {
                   message: "Password must be at least 6 characters long",
                 },
               })}
-              className="w-full px-4 py-2 border rounded-lg "
+              className="w-full px-4 py-2 border rounded-lg bg-white"
             />
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">
